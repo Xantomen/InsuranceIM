@@ -1,10 +1,48 @@
-# Django settings for InsuranceIM project.
+
+
+
+import socket
+
+database_path = ""
+template_dirs = ""
+
+if socket.gethostname() == 'Nemot1':
+
+    database_path = 'C:/Dropbox/GitHub/RecipePrintouts/databases/InsuranceIMdb'
+    template_dirs = 'C:/Dropbox/GitHub/RecipePrintouts/templates'
+    
+if socket.gethostname() == 'Nemot-PC':
+
+    database_path = 'C:/Dropbox/GitHub/InsuranceIM/databases/InsuranceIMdb'
+    template_dirs = 'C:/Dropbox/GitHub/InsuranceIM/templates'
+    
+elif socket.gethostname() == 'Marios-PC':
+
+    database_path = 'F:/Nath_Database/InsuranceIM/databases/InsuranceIMdb'
+    template_dirs = 'F:/Nath_Database/InsuranceIM/templates'
+
+else:
+   
+    database_path = '/home/ec2-user/django-project/InsuranceIM/databases/InsuranceIMdb'    
+    template_dirs = '/home/ec2-user/django-project/InsuranceIM/templates'
+
+'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'databases/InsuranceIMdb',                      # Or path to database file if using sqlite3.
+    
+if socket.gethostname() == 'Nemot1' or socket.gethostname() == 'Marios-PC' or socket.gethostname() == 'Nemot-PC':
+    DEBUG = TEMPLATE_DEBUG = True
+else:
+    DEBUG = TEMPLATE_DEBUG = True
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+    #('Developers','enersect.developers@gmail.com')
+#    ('Xanto', 'xantomen@gmail.com'),
+#    ('Marios Richards', 'marios.richards@gmail.com')
+
 )
 
 MANAGERS = ADMINS
@@ -12,24 +50,29 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'databases/InsuranceIMdb',                      # Or path to database file if using sqlite3.
+        'NAME': database_path,                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
+        'OPTIONS': {
+            'timeout': 300,
+        }
     }
 }
 
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']  #['54.200.180.182']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Berlin'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -83,7 +126,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '%%9^@esl88&3($q8a==758*@(y!0t0&x1ufu9p!7wy9lhzrz$-'
+SECRET_KEY = '=%6s11d0xvg_j$76)v6vvo17*$k5dcs!4v--db9=#2o1ak7vt^'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -98,9 +141,15 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
+    'maintenance.middleware.MaintenanceMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+MAINTENANCE_FILE = 'django-project/InsuranceIM/insuranceimapp/templates/insuranceimapp/maintenance_screen.jpg' 
+
+MAINTENANCE_URL = '/insuranceimapp/maintenance_screen'
 
 ROOT_URLCONF = 'InsuranceIM.urls'
 
@@ -111,46 +160,169 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    template_dirs # Change this to your own directory.
 )
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-)
+if socket.gethostname() == 'Nemot1' or socket.gethostname() == 'Marios-PC' or socket.gethostname() == 'Nemot-PC':
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'insuranceimapp',
+        'south',
+        'django_extensions',
+        #'template_previewer',
+        #'previewer',
+        # Uncomment the next line to enable the admin:
+        'django.contrib.admin',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+    )
+
+else:
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'insuranceimapp',
+        'maintenance',
+        'django_extensions',
+        #'template_previewer',
+        #'previewer',
+        # Uncomment the next line to enable the admin:
+        'django.contrib.admin',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+    )
+    
+
+
+SOUTH_AUTO_FREEZE_APP = True
+
+
+AUTH_PROFILE_MODULE = 'insuranceimapp.UserProfile'
+
+# email section
+
+#EMAIL_BACKEND = 'django_ses.SESBackend'
+#SERVER_EMAIL = 'enersect.developers@gmail.com'
+
+# EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'AKIAIQXH7XFKO2TVCIPQ'
+# EMAIL_HOST_PASSWORD = 'Ail+gyclkOAtFWM4JjOTa2ckXm3ELy4tdN/k9eDdiwW0'
+# EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'Developers <enersect.developers@gmail.com>'
+
+
+
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+
+if DEBUG == False:
+
+    pass_this_section = True
+    '''LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'filters': {
+            'require_debug_false': {
+                '()': 'django.utils.log.RequireDebugFalse'
+            }
         },
+        'handlers': {
+            'mail_admins': {
+                'level': 'ERROR',
+                'filters': ['require_debug_false'],
+                'class': 'django.utils.log.AdminEmailHandler'
+            },
+            'logfile': {
+                'class': 'logging.FileHandler',
+                'filename': '/srv/insuranceimapp/logs/django/error.log'
+            },
+        },
+        'loggers': {
+#            'django.request': {
+#                'handlers': ['mail_admins'],
+#                'level': 'ERROR',
+#                'propagate': True,
+#            },
+            'django': {
+                'handlers': ['logfile'],
+                'level': 'INFO',
+                'propagate': True,
+            },
+        }
+    }'''
+    
+    
+    '''LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': '/srv/insuranceimapp/logs/django/error.log',
+            },
+        },
+        'loggers': {
+            'django.request': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }'''
+
+# debug_toolbar settings
+if DEBUG:
+    if socket.gethostname() == 'Nemot1' or socket.gethostname() == 'Marios-PC' or socket.gethostname() == 'Nemot-PC':
+        INTERNAL_IPS = ('127.0.0.1',)
+    else:
+        INTERNAL_IPS = ('80.30.87.229',)
+       
+    MIDDLEWARE_CLASSES += (
+       #'debug_toolbar.middleware.DebugToolbarMiddleware',
+	
+    )
+
+    INSTALLED_APPS += (
+       #'debug_toolbar',
+       # 'template_timings_panel',
+    )
+
+    DEBUG_TOOLBAR_PANELS = (
+        'debug_toolbar.panels.version.VersionDebugPanel',
+        'debug_toolbar.panels.timer.TimerDebugPanel',
+        'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+        'debug_toolbar.panels.headers.HeaderDebugPanel',
+        'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+        'debug_toolbar.panels.sql.SQLDebugPanel',
+        'debug_toolbar.panels.template.TemplateDebugPanel',
+        'debug_toolbar.panels.cache.CacheDebugPanel',
+        'debug_toolbar.panels.signals.SignalDebugPanel',
+        'debug_toolbar.panels.logger.LoggingPanel',
+        #'template_timings_panel.panels.TemplateTimings.TemplateTimings',
+        #'template_timings_panel.panels.TemplateTimings.TemplateTimings'
+    )
+
+ #'debug_toolbar.panels.profiling.ProfilingDebugPanel',
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+        'SHOW_TEMPLATE_CONTEXT': True,
     }
-}
