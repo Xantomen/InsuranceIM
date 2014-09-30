@@ -5,9 +5,6 @@ from django.db import models
 from django.contrib.auth.models import User,Group
 from django.db.models.signals import post_save
 
-from tzlocal import get_localzone
-
-local_tz = get_localzone()
 
 #Table to organise the different possible views/interfaces (in case there are different tools)
 
