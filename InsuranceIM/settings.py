@@ -8,8 +8,8 @@ template_dirs = ""
 
 if socket.gethostname() == 'Nemot1':
 
-    database_path = 'C:/Dropbox/GitHub/RecipePrintouts/databases/InsuranceIMdb'
-    template_dirs = 'C:/Dropbox/GitHub/RecipePrintouts/templates'
+    database_path = 'C:/Dropbox/GitHub/InsuranceIM/databases/InsuranceIMdb'
+    template_dirs = 'C:/Dropbox/GitHub/InsuranceIM/templates'
     
 if socket.gethostname() == 'Nemot-PC':
 
@@ -26,8 +26,6 @@ else:
     database_path = '/home/ec2-user/django-project/InsuranceIM/databases/InsuranceIMdb'    
     template_dirs = '/home/ec2-user/django-project/InsuranceIM/templates'
 
-'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'databases/InsuranceIMdb',                      # Or path to database file if using sqlite3.
     
 if socket.gethostname() == 'Nemot1' or socket.gethostname() == 'Marios-PC' or socket.gethostname() == 'Nemot-PC':
     DEBUG = TEMPLATE_DEBUG = True
