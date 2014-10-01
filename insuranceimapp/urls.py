@@ -32,6 +32,11 @@ urlpatterns = patterns('',
     # ex: /insuranceimapp/main_menu
     url(r'^main_menu', views.main_menu, name='main_menu'),   
 
+    #
+    # Group Members List and Options menu (group_options_menu). Shows the main available options: Find Group, New Group, Options
+    # ex: /insuranceimapp/group_options_menu/groups_name
+    url(r'^group_options_menu/(?P<group_name>.+)/', views.group_options_menu, name='group_options_menu'),   
+
 
     #
     # Options menu (options_menu). Shows the available options: Logout, Deactivate User, Edit Profile

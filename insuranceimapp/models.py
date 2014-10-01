@@ -101,6 +101,7 @@ class UserProfile(models.Model):
     contacts_list = models.ManyToManyField('UserProfile',related_name='contacts_list_field', null=True, blank=True, default=None)
     unread_messages = models.ManyToManyField('Message',related_name='unread_messages', null=True, blank=True, default=None)
     read_messages = models.ManyToManyField('Message',related_name='read_messages', null=True, blank=True, default=None)
+    sent_messages = models.ManyToManyField('Message',related_name='sent_messages', null=True, blank=True, default=None)
     groups_list = models.ManyToManyField('GroupProfile',related_name='groups_list', null=True, blank=True, default=None)
     #user_company = models.ForeignKey(Group,null=True,blank=True)
     #modifiedsourcepdfs_categorization_tool = models.ManyToManyField(SourcePdf,related_name='sourcepdfs_modified_categorization_tool', null=True, blank=True, default=None)
@@ -136,6 +137,13 @@ class UserProfile(models.Model):
     def addReadMessage(self,message):
         if message:
             self.read_messages.add(message)
+            
+    def addSentMessage(self,message):
+        if message:
+            self.sent_messages.add(message)
+        
+    def getSentMessages(self,message):
+        return self.sent_messages.all()
             
     def addGroup(self,group_profile):
         if group_profile:
@@ -174,6 +182,9 @@ class GroupProfile(models.Model):
     def addMember(self,member):
         if member:
             self.members_list.add(member)
+            
+    def getMembersList(self):
+        return self.members_list.all()
 
      
 def create_group_profile(sender, instance, created, **kwargs):  

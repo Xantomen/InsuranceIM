@@ -35,8 +35,6 @@ def main_menu(request):
     
     belonging_groups_list = user_profile.getGroupsList()
     
-    print action_to_execute
-    
     if group_name:
         if action_to_execute == "join_group":
             try:
@@ -57,7 +55,13 @@ def main_menu(request):
                 print "CREATING GROUP"
             except:
                 print "COULDN'T CREATE GROUP"
-            
+        if action_to_execute == "group_name_click":
+            group = Group(name = group_name)
+            group_name = group.name
+            return HttpResponseRedirect(reverse('insuranceimapp:group_options_menu', args=(str(group_name),)))
+            print "GOING TO GROUP "+str(group_name)+ " MEMBER LIST"
+        
+           
     if action_to_execute == "go_to_options_menu":  
         return HttpResponseRedirect(reverse('insuranceimapp:options_menu', args=()))
        

@@ -13,7 +13,7 @@ from django.utils import timezone
 
 
 from insuranceimapp.viewsfunctions import (app_index_module,app_login_module,register_new_user_module,main_menu_module,
-                                           options_menu_module)
+                                           options_menu_module,group_options_menu_module)
 
 from insuranceimapp.models import *
 
@@ -37,6 +37,10 @@ def app_index(request):
 def main_menu(request):
     
     return main_menu_module.main_menu(request)
+
+def group_options_menu(request,group_name):
+    
+    return group_options_menu_module.group_options_menu(request,group_name)
 
 def options_menu(request):
     
