@@ -101,6 +101,7 @@ class UserProfile(models.Model):
     contacts_list = models.ManyToManyField(User,related_name='contacts_list', null=True, blank=True, default=None)
     unread_messages = models.ManyToManyField(Message,related_name='unread_messages', null=True, blank=True, default=None)
     read_messages = models.ManyToManyField(Message,related_name='read_messages', null=True, blank=True, default=None)
+    #groups_list = models.ManyToManyField('GroupProfile',related_name='groups_list', null=True, blank=True, default=None)
     #user_company = models.ForeignKey(Group,null=True,blank=True)
     #modifiedsourcepdfs_categorization_tool = models.ManyToManyField(SourcePdf,related_name='sourcepdfs_modified_categorization_tool', null=True, blank=True, default=None)
     
@@ -135,6 +136,10 @@ class UserProfile(models.Model):
     def addReadMessage(self,message):
         if message:
             self.read_messages.add(message)
+            
+    def addGroup(self,group):
+        if message:
+            self.groups_list.add(group)
     
     
      
@@ -152,11 +157,10 @@ class GroupProfile(models.Model):
     group = models.OneToOneField(Group)
     group_active = models.CharField(max_length=31,default='active')
     members_list = models.ManyToManyField(User,related_name='members_list', null=True, blank=True, default=None)
-    #unique_lot_number_list = models.ManyToManyField(LotNumber,related_name='lot_number_list', null=True, blank=True, default=None)
     
     
     def __str__(self):  
-          return "%s's profile" % self.group 
+          return "%s's profile" % self.group
       
     def setActive(self,state):
         if state == True:

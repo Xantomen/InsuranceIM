@@ -19,12 +19,6 @@ def register_new_user(request):
 
         username_exists = User.objects.filter(username = username)
 
-        print "PASSWORD -> "+ str(password)
-        print "RETYPE PASSWORD -> "+ str(repeat_password)
-        print "USERNAME -> "+ str(username)
-        print "EMAIL -> "+ str(email)
-        print "USER EXISTS? -> "+ str(username_exists)
-
         if password and email and password == repeat_password and not len(username_exists):
         
             user = User.objects.create_user(username = username, password = repeat_password, email = email)

@@ -1,0 +1,111 @@
+
+{% load i18n %}
+
+{% block page_title %}
+<head>
+<title>RecipePrinouts Apps Main Menu</title>
+</head>
+{% endblock page_title %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_panel_module.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/app_index.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
+
+
+<script>
+    
+    $(document).ready(function(){
+        
+        createUserPanel();
+        
+        $( "#tools-panel" ).dialog({
+                  
+                  height: $('body').height()-30,
+                  
+                  modal: false,
+                  autoOpen:true,
+                  closeOnEscape: false,
+                  resizable:true,
+                  
+                  
+        });
+                
+        $( "#toolspanelmenu" ).menu({ position: { my: "right bottom", at: "right bottom" },
+                    select: function( event, ui ) {
+                        
+                    } 
+        });    
+
+
+        function createUserPanel(){
+        
+            $( "#user-panel" ).dialog({
+                  
+                  height: $('#userpanel_container').height(),
+                  width: $('#userpanel_container').width(),
+                  modal: false,
+                  autoOpen:true,
+                  closeOnEscape: false,
+                  resizable:true,
+                  position: {
+                    my: "left bottom", at: "left bottom", of: $('#userpanel_container')
+                    }
+                  
+                });
+                
+                $( "#userpanelmenu" ).menu({ position: { my: "right bottom", at: "right bottom" },
+                    select: function( event, ui ) {
+                        
+                    } 
+                });
+        }
+
+    
+    });
+    
+
+</script>
+
+<body>
+
+    <form id="contents_form" name="contents_form" action="{% url 'insuranceimapp:main_menu' %}" method="post">
+    {% csrf_token %}
+    <div id="toolspanel_container">
+            <div id="tools-panel" title="Tools Available">
+                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
+                <ul class="menuclass" id="toolspanelmenu">
+                    {% for group_object in belonging_groups_list %}
+                        <li><div id="group_name_button{{group_object.id}}" class="group_name_button list_button" value="{{group_object.id}}">{{group_object.name}}</div></li>
+                        <li>--</li>
+                    {% endfor %}
+                        <li><div id="join_group_button" class="list_button" value="join_group">Join Group</div></li>
+                        <li>--</li>
+                        <li><div id="create_group_button" class="list_button" value="create_new_group">Create Group</div></li>
+                    	<li>--</li>
+                        <li><div id="options_button" class="list_button" value="go_to_options_menu">Options</div></li>
+                </ul>
+            </div>
+            
+            <input id="action_to_execute" class="invisible" value=""/>
+    </div>
+    
+    <div id="userpanel_container">
+            <div id="user-panel" title="{{the_user.username}}">
+                
+                <ul class="menuclass" id="userpanelmenu">
+                    <li><a id="logout_link" href="{% url 'insuranceimapp:app_login' %}">Change User</a></li>
+                    
+                </ul>
+            </div>
+    </div>
+    </form>
+    
+</body>
+
+

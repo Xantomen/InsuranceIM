@@ -26,6 +26,11 @@ urlpatterns = patterns('',
     # Main (app_index). Shows the four available modes. Can't access them at the moment
     # ex: /recipeprintoutsapp/
     url(r'^$', views.app_index, name='app_index'),   
+    
+    #
+    # Main menu (main_menu). Shows the main available options: Find Group, New Group, Options
+    # ex: /insuranceimapp/main_menu
+    url(r'^main_menu', views.main_menu, name='main_menu'),   
 
     
 
