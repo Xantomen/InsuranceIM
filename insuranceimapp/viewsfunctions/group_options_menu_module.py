@@ -78,5 +78,5 @@ def group_options_menu(request,group_name):
         print "RETURNING TO MAIN MENU"
         return HttpResponseRedirect(reverse('insuranceimapp:main_menu', args=()))
        
-    context = {'belonging_users_list':belonging_users_list,"the_user":the_user,"group_name":group_name}
+    context = {'belonging_users_list':belonging_users_list,"the_user":the_user,"user_profile":user_profile,"group_name":group_name}
     return render(request,'insuranceimapp/group_options_menu.html',context)
