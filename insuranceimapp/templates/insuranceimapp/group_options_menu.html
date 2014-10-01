@@ -160,10 +160,22 @@
                     {% for user_object in belonging_users_list %}
                         <li class="list_element">
                         	<div class="receiving_icons_panel">
-                        		<img class="icon_image hurray_image" src="{% static 'insuranceimapp/images/hurray.png' %}" alt="Hurray! I made a sell!">
-                        		<img class="icon_image need_help_image" src="{% static 'insuranceimapp/images/need_help.png' %}" alt="Need cheering, I'm going for it!">
-                        		<img class="icon_image hang_in_there_image" src="{% static 'insuranceimapp/images/hang_in_there.png' %}" alt="Hang in there buddy!">
-                        		<img class="icon_image well_done_image" src="{% static 'insuranceimapp/images/well_done.png' %}" alt="Yeah! Well done!">
+                        		{% for message in user_object.sent_messages.all %}
+                        			{% if message.content == "hurray" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        			<img class="icon_image hurray_image" src="{% static 'insuranceimapp/images/hurray.png' %}" alt="Hurray! I made a sell!">
+	                        		{% endif %}
+	                        		{% if message.content == "need_help" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}	
+	                        		<img class="icon_image need_help_image" src="{% static 'insuranceimapp/images/need_help.png' %}" alt="Need cheering, I'm going for it!">
+	                        		{% endif %}
+	                        		{% if message.content == "hang_in_there" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        		<img class="icon_image hang_in_there_image" src="{% static 'insuranceimapp/images/hang_in_there.png' %}" alt="Hang in there buddy!">
+	                        		{% endif %}
+	                        		{% if message.content == "well_done" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        		<img class="icon_image well_done_image" src="{% static 'insuranceimapp/images/well_done.png' %}" alt="Yeah! Well done!">
+	                        		{% endif %}
+	                        		
+	                        		
+                        		{% endfor %}
                         	</div>
                         	<div id="user_name_button{{user_object.id}}" class="user_name_button list_button" group_name="{{user_object.user.username}}" value="{{user_object.id}}" action_value="user_name_click">
                         	
@@ -171,10 +183,20 @@
                         	
                         	</div>
                         	<div class="sending_icons_panel">
-                        		<img class="icon_image hurray_image" src="{% static 'insuranceimapp/images/hurray.png' %}" alt="Hurray! I made a sell!">
-                        		<img class="icon_image need_help_image" src="{% static 'insuranceimapp/images/need_help.png' %}" alt="Need cheering, I'm going for it!">
-                        		<img class="icon_image hang_in_there_image" src="{% static 'insuranceimapp/images/hang_in_there.png' %}" alt="Hang in there buddy!">
-                        		<img class="icon_image well_done_image" src="{% static 'insuranceimapp/images/well_done.png' %}" alt="Yeah! Well done!">
+                        		{% for message in user_profile.sent_messages.all %}
+	                        		{% if message.content == "hurray" and message.pushed == "pushed" and user_object in message.receiver_users.all %}
+	                        		<img class="icon_image hurray_image" src="{% static 'insuranceimapp/images/hurray.png' %}" alt="Hurray! I made a sell!">
+	                        		{% endif %}
+	                        		{% if message.content == "need_help" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        		<img class="icon_image need_help_image" src="{% static 'insuranceimapp/images/need_help.png' %}" alt="Need cheering, I'm going for it!">
+	                        		{% endif %}
+	                        		{% if message.content == "hang_in_there" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        		<img class="icon_image hang_in_there_image" src="{% static 'insuranceimapp/images/hang_in_there.png' %}" alt="Hang in there buddy!">
+	                        		{% endif %}
+	                        		{% if message.content == "well_done" and message.pushed == "pushed" and user_profile in message.receiver_users.all %}
+	                        		<img class="icon_image well_done_image" src="{% static 'insuranceimapp/images/well_done.png' %}" alt="Yeah! Well done!">
+	                        		{% endif %}
+                        		{% endfor %}
                         	</div>
                         	
                         </li>
