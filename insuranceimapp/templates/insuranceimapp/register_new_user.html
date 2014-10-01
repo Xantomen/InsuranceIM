@@ -1,0 +1,71 @@
+
+{% load i18n admin_static %}
+
+{% block config_libs %} 
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+
+
+{% endblock config_libs %}
+
+{% block special_libs %} 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/register_new_user.css' %}" />
+
+{% endblock special_libs %}
+
+{% block javascript %} 
+
+<script>
+
+    $(document).ready(function () {
+    
+        $( "#login" ).dialog({
+          autoOpen: true,
+          height: 500,
+          width: 350,
+          modal: true,
+          closeOnEscape: false,
+          resizable: false,
+          buttons: {
+            "Register New User": function() {
+                $('#LoginForm').submit();
+            },
+            "Cancel": function() {
+                window.location.href = window.location.href.replace("/register_new_user","");
+            }
+          }
+          
+        });
+    
+    
+    });
+
+</script>
+
+{% endblock javascript %}
+
+{% block content %}
+    <div id="login" title="Log In">
+        <form id="LoginForm" name="LoginForm" action="{% url 'insuranceimapp:register_new_user' %}" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+              
+          <fieldset>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username"  class="text ui-widget-content ui-corner-all" />
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+          	<label for="repeat_password">Retype Password</label>
+            <input type="password" name="repeat_password" id="repeat_password" value="" class="text ui-widget-content ui-corner-all" />
+          </fieldset>
+
+        </form>
+    </div>
+{% endblock %}
+
