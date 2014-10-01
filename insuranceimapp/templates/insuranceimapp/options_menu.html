@@ -14,7 +14,7 @@
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_panel_module.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/main_menu.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/app_index.css' %}" /> 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -23,9 +23,8 @@
     $(document).ready(function(){
         
         createUserPanel();
-        initiateListeners();
         
-        /*$( "#tools-panel" ).dialog({
+        $( "#tools-panel" ).dialog({
                   
                   height: $('body').height()-30,
                   
@@ -41,7 +40,7 @@
                     select: function( event, ui ) {
                         
                     } 
-        });    */
+        });    
 
 
         function createUserPanel(){
@@ -67,64 +66,6 @@
                 });
         }
 
-		function initiateListeners(){
-			
-			//Click on Join Group Button
-			
-			$("#join_group_button").click(function(){
-				
-				$("#group_text_line").removeClass("invisible");
-				
-				action = $(this).attr("value");
-				
-				$("#action_to_execute").attr("value",action);
-				
-				$("#group_text_field").focus();
-			});
-			
-			//Click on Create Group Button
-			
-			$("#create_group_button").click(function(){
-				
-				$("#group_text_line").removeClass("invisible");
-				
-				action = $(this).attr("value");
-				
-				$("#action_to_execute").attr("value",action);
-				
-				$("#group_text_field").focus();
-			});
-			
-			//When unfocusing from text input field (to create or find groups)
-			//If there is something written, it submits, to execute the action asked for (create or find)
-			
-			$("#group_text_field").blur(function(){
-				
-				group_value = $("#group_text_field").val();
-				
-				if(group_value)
-				{
-					$("#contents_form").submit();
-				}
-				else
-				{
-					$("#group_text_line").addClass("invisible");
-				}
-				
-			});
-			
-			
-			//Click on Options Menu Button
-			
-			$("#options_button").click(function(){
-				
-				action = $(this).attr("value");
-				
-				$("#action_to_execute").attr("value",action);
-				$("#contents_form").submit();
-				
-			});
-		}
     
     });
     
@@ -135,29 +76,23 @@
 
     <form id="contents_form" name="contents_form" action="{% url 'insuranceimapp:main_menu' %}" method="post">
     {% csrf_token %}
-    
-    
     <div id="toolspanel_container">
             <div id="tools-panel" title="Tools Available">
                 <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
                 <ul class="menuclass" id="toolspanelmenu">
                     {% for group_object in belonging_groups_list %}
-                        <li class="list_element"><div id="group_name_button{{group_object.id}}" class="group_name_button list_button" value="{{group_object.id}}"><p>{{group_object.name}}</p></div></li>
-                        
+                        <li><div id="group_name_button{{group_object.id}}" class="group_name_button list_button" value="{{group_object.id}}">{{group_object.name}}</div></li>
+                        <li>--</li>
                     {% endfor %}
-                    
-                    	<li id="group_text_line" class="invisible list_element"><input type="text" name="group_text_field" id="group_text_field" class="list_button" placeholder="Introduce Group Name, then click outside." value=""/></li>
-                        
-                        <li class="list_element"><div id="join_group_button" class="action_button list_button" value="join_group"><p>Join Group</p></div></li>
-                        
-                        <li class="list_element"><div id="create_group_button" class="action_button list_button" value="create_new_group"><p>Create Group</p></div></li>
-                    	
-                        <li class="list_element"><div id="options_button" class="action_button list_button" value="go_to_options_menu"><p>Options</p></div></li>
-                        
+                        <li><div id="join_group_button" class="list_button" value="join_group">Join Group</div></li>
+                        <li>--</li>
+                        <li><div id="create_group_button" class="list_button" value="create_new_group">Create Group</div></li>
+                    	<li>--</li>
+                        <li><div id="options_button" class="list_button" value="go_to_options_menu">Options</div></li>
                 </ul>
             </div>
             
-            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
+            <input id="action_to_execute" class="invisible" value=""/>
     </div>
     
     <div id="userpanel_container">

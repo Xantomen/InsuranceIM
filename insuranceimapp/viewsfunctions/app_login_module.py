@@ -19,6 +19,6 @@ def app_login(request):
             if user.is_active:
                 login(request, user)
                 #return HttpResponseRedirect('enersectapp:main')
-                return HttpResponseRedirect(reverse('insuranceimapp:app_index', args=()))
+                return HttpResponseRedirect(reverse('insuranceimapp:main_menu', args=()))
                 #return reverse('enersectapp:main', args=())
     return render_to_response('insuranceimapp/app_login.html', context_instance=RequestContext(request))

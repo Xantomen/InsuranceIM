@@ -32,6 +32,10 @@ urlpatterns = patterns('',
     # ex: /insuranceimapp/main_menu
     url(r'^main_menu', views.main_menu, name='main_menu'),   
 
-    
+
+    #
+    # Options menu (options_menu). Shows the available options: Logout, Deactivate User, Edit Profile
+    # ex: /insuranceimapp/options_menu
+    url(r'^options_menu', views.options_menu, name='options_menu'), 
 
 )
