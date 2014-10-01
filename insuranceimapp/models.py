@@ -27,6 +27,28 @@ class Message(models.Model):
     
     def __str__(self):  
           return self.content 
+    
+    def setContent(self,content):
+        if content:
+            self.content = content
+    
+    def setPushed(self,state):
+        if state == True:
+           self.pushed = 'pushed'
+        else:
+           self.pushed = 'not_pushed'
+           
+    def setSender(self,sender):
+        if sender:
+            self.sender = sender
+    
+    def addReceiverUser(self,receiver):
+        if receiver:
+            self.receiver_users.add(receiver)
+    
+    def addReceiverGroup(self,receiver):
+        if receiver:
+            self.receiver_groups.add(receiver)
       
 class Report(models.Model):  
     action = models.CharField(max_length=63,default='')
@@ -39,6 +61,34 @@ class Report(models.Model):
     
     def __str__(self):  
           return self.description     
+      
+    def setAction(self,action):
+        if action:
+            self.action = action
+            
+    def setSubAction(self,subaction):
+        if subaction:
+            self.subaction = subaction
+            
+    def setDescription(self,description):
+        if description:
+            self.description = description
+            
+    def setUserResponsible(self,user_responsible):
+        if user_responsible:
+            self.user_responsible = user_responsible
+            
+    def addUserAffected(self,user_affected):
+        if user_affected:
+            self.users_affected.add(user_affected)
+            
+    def addGroupAffected(self,group_affected):
+        if group_affected:
+            self.groups_affected.add(group_affected)
+        
+    def addMessageAffected(self,message_affected):
+        if message_affected:
+            self.messages_affected.add(message_affected)
 #
 #
 ### UserProfile and GroupProfile, to extend the User and Group tables. This are created each time a Group or User is created.    
@@ -56,11 +106,35 @@ class UserProfile(models.Model):
     
     
     #other fields here
-
     
     def __str__(self):  
           return "%s's profile" % self.user 
    
+    def setPhonenumberPrefix(self,phonenumber_prefix):
+        if phonenumber_prefix:
+            self.phonenumber_prefix = phonenumber_prefix
+            
+    def setPhonenumber(self,phonenumber):
+        if phonenumber:
+            self.phonenumber = phonenumber
+            
+    def setPushed(self,state):
+        if state == True:
+           self.user_active = 'active'
+        else:
+           self.user_active = 'not_active'
+           
+    def addContact(self,contact):
+        if contact:
+            self.contacts_list.add(contact)
+            
+    def addUnreadMessage(self,message):
+        if message:
+            self.unread_messages.add(message)
+            
+    def addReadMessage(self,message):
+        if message:
+            self.read_messages.add(message)
     
     
      
@@ -83,6 +157,16 @@ class GroupProfile(models.Model):
     
     def __str__(self):  
           return "%s's profile" % self.group 
+      
+    def setActive(self,state):
+        if state == True:
+           self.group_active = 'active'
+        else:
+           self.group_active = 'not_active'
+      
+    def addMember(self,member):
+        if member:
+            self.members_list.add(member)
 
      
 def create_group_profile(sender, instance, created, **kwargs):  

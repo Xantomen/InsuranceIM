@@ -14,6 +14,11 @@ urlpatterns = patterns('',
     #return redirect('/login/' % request.path)
     #ex: /recipeprintoutsapp/login/
     url(r'^login/$', views.app_login, name='app_login'),
+    
+    #Log In View when not authentificated
+    #return redirect('/login/' % request.path)
+    #ex: /recipeprintoutsapp/login/
+    url(r'^login/register_new_user/$', views.register_new_user, name='register_new_user'),
         
     # Note: To access to admin panel, the url is simply /admin
     # Admin already has an authentification mode built in.
@@ -21,5 +26,7 @@ urlpatterns = patterns('',
     # Main (app_index). Shows the four available modes. Can't access them at the moment
     # ex: /recipeprintoutsapp/
     url(r'^$', views.app_index, name='app_index'),   
+
+    
 
 )

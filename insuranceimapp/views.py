@@ -12,7 +12,7 @@ from django.views import generic
 from django.utils import timezone
 
 
-from insuranceimapp.viewsfunctions import (app_index_module,app_login_module)
+from insuranceimapp.viewsfunctions import (app_index_module,app_login_module,register_new_user_module)
 
 from insuranceimapp.models import *
 
@@ -23,6 +23,11 @@ def maintenance_screen(request):
 def app_login(request):
   
     return app_login_module.app_login(request)
+
+def register_new_user(request):
+
+    return register_new_user_module.register_new_user(request)
+    
 
 def app_index(request):
     
