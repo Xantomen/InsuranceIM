@@ -38,7 +38,7 @@ class Report(models.Model):
     messages_affected = models.ManyToManyField(Message,related_name='groups_affected', null=True, blank=True, default=None)
     
     def __str__(self):  
-          return self.content     
+          return self.description     
 #
 #
 ### UserProfile and GroupProfile, to extend the User and Group tables. This are created each time a Group or User is created.    
