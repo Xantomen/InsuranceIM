@@ -24,15 +24,40 @@ def main_menu(request):
     except:
         action_to_execute = ""
 
+    try:
+        group_name = request.POST['group_text_field']
+
+    except:
+        group_name = ""
         
-    belonging_groups_list = the_user.groups.all()
+    
+    user_profile = UserProfile.objects.get(user = the_user)
+    
+    belonging_groups_list = user_profile.getGroupsList()
     
     print action_to_execute
     
-    if action_to_execute == "join_group":
-        print "JOINING GROUP"
-    if action_to_execute == "create_new_group":
-        print "CREATING GROUP"
+    if group_name:
+        if action_to_execute == "join_group":
+            try:
+                group = Group.objects.get(name = group_name)
+                group_profile = GroupProfile.objects.get(group = group)
+                group_profile.addMember(user_profile)
+                user_profile.addGroup(group_profile)
+                print "JOINING GROUP"
+            except:
+                print "NO GROUP CALLED LIKE THAT"
+        if action_to_execute == "create_new_group":
+            try:
+                group = Group(name = group_name)
+                group.save()
+                group_profile = GroupProfile.objects.get(group = group)
+                group_profile.addMember(user_profile)
+                user_profile.addGroup(group_profile)
+                print "CREATING GROUP"
+            except:
+                print "COULDN'T CREATE GROUP"
+            
     if action_to_execute == "go_to_options_menu":  
         return HttpResponseRedirect(reverse('insuranceimapp:options_menu', args=()))
        

@@ -142,7 +142,7 @@
                 <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
                 <ul class="menuclass" id="toolspanelmenu">
                     {% for group_object in belonging_groups_list %}
-                        <li class="list_element"><div id="group_name_button{{group_object.id}}" class="group_name_button list_button" value="{{group_object.id}}"><p>{{group_object.name}}</p></div></li>
+                        <li class="list_element"><div id="group_name_button{{group_object.id}}" class="group_name_button list_button" value="{{group_object.id}}"><p>{{group_object.group.name}}</p></div></li>
                         
                     {% endfor %}
                     

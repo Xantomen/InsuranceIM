@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('action', self.gf('django.db.models.fields.CharField')(default='', max_length=63)),
             ('subaction', self.gf('django.db.models.fields.CharField')(default='', max_length=63)),
             ('description', self.gf('django.db.models.fields.CharField')(default='', max_length=255)),
-            ('user_responsible', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['auth.User'], null=True, blank=True)),
+            ('user_responsible', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['insuranceimapp.UserProfile'], null=True, blank=True)),
         ))
         db.send_create_signal(u'insuranceimapp', ['Report'])
 
@@ -23,18 +23,18 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('report', models.ForeignKey(orm[u'insuranceimapp.report'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+            ('userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['report_id', 'user_id'])
+        db.create_unique(m2m_table_name, ['report_id', 'userprofile_id'])
 
         # Adding M2M table for field groups_affected on 'Report'
         m2m_table_name = db.shorten_name(u'insuranceimapp_report_groups_affected')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('report', models.ForeignKey(orm[u'insuranceimapp.report'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
+            ('groupprofile', models.ForeignKey(orm[u'insuranceimapp.groupprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['report_id', 'group_id'])
+        db.create_unique(m2m_table_name, ['report_id', 'groupprofile_id'])
 
         # Adding M2M table for field messages_affected on 'Report'
         m2m_table_name = db.shorten_name(u'insuranceimapp_report_messages_affected')
@@ -59,10 +59,10 @@ class Migration(SchemaMigration):
         m2m_table_name = db.shorten_name(u'insuranceimapp_userprofile_contacts_list')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+            ('from_userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False)),
+            ('to_userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['userprofile_id', 'user_id'])
+        db.create_unique(m2m_table_name, ['from_userprofile_id', 'to_userprofile_id'])
 
         # Adding M2M table for field unread_messages on 'UserProfile'
         m2m_table_name = db.shorten_name(u'insuranceimapp_userprofile_unread_messages')
@@ -82,6 +82,15 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['userprofile_id', 'message_id'])
 
+        # Adding M2M table for field groups_list on 'UserProfile'
+        m2m_table_name = db.shorten_name(u'insuranceimapp_userprofile_groups_list')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False)),
+            ('groupprofile', models.ForeignKey(orm[u'insuranceimapp.groupprofile'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['userprofile_id', 'groupprofile_id'])
+
         # Adding model 'GroupProfile'
         db.create_table(u'insuranceimapp_groupprofile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -95,16 +104,16 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('groupprofile', models.ForeignKey(orm[u'insuranceimapp.groupprofile'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+            ('userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['groupprofile_id', 'user_id'])
+        db.create_unique(m2m_table_name, ['groupprofile_id', 'userprofile_id'])
 
         # Adding model 'Message'
         db.create_table(u'insuranceimapp_message', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('content', self.gf('django.db.models.fields.CharField')(default='', max_length=63)),
             ('pushed', self.gf('django.db.models.fields.CharField')(default='not_pushed', max_length=15)),
-            ('sender', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['auth.User'], null=True, blank=True)),
+            ('sender', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['insuranceimapp.UserProfile'], null=True, blank=True)),
         ))
         db.send_create_signal(u'insuranceimapp', ['Message'])
 
@@ -113,18 +122,18 @@ class Migration(SchemaMigration):
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('message', models.ForeignKey(orm[u'insuranceimapp.message'], null=False)),
-            ('user', models.ForeignKey(orm[u'auth.user'], null=False))
+            ('userprofile', models.ForeignKey(orm[u'insuranceimapp.userprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['message_id', 'user_id'])
+        db.create_unique(m2m_table_name, ['message_id', 'userprofile_id'])
 
         # Adding M2M table for field receiver_groups on 'Message'
         m2m_table_name = db.shorten_name(u'insuranceimapp_message_receiver_groups')
         db.create_table(m2m_table_name, (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('message', models.ForeignKey(orm[u'insuranceimapp.message'], null=False)),
-            ('group', models.ForeignKey(orm[u'auth.group'], null=False))
+            ('groupprofile', models.ForeignKey(orm[u'insuranceimapp.groupprofile'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['message_id', 'group_id'])
+        db.create_unique(m2m_table_name, ['message_id', 'groupprofile_id'])
 
         # Adding model 'UserInterfaceType'
         db.create_table(u'insuranceimapp_userinterfacetype', (
@@ -159,6 +168,9 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field read_messages on 'UserProfile'
         db.delete_table(db.shorten_name(u'insuranceimapp_userprofile_read_messages'))
+
+        # Removing M2M table for field groups_list on 'UserProfile'
+        db.delete_table(db.shorten_name(u'insuranceimapp_userprofile_groups_list'))
 
         # Deleting model 'GroupProfile'
         db.delete_table(u'insuranceimapp_groupprofile')
@@ -221,27 +233,27 @@ class Migration(SchemaMigration):
             'group': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.Group']", 'unique': 'True'}),
             'group_active': ('django.db.models.fields.CharField', [], {'default': "'active'", 'max_length': '31'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members_list': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'members_list'", 'default': 'None', 'to': u"orm['auth.User']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'})
+            'members_list': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'members_list'", 'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'})
         },
         u'insuranceimapp.message': {
             'Meta': {'object_name': 'Message'},
             'content': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '63'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'pushed': ('django.db.models.fields.CharField', [], {'default': "'not_pushed'", 'max_length': '15'}),
-            'receiver_groups': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'receiver_groups'", 'default': 'None', 'to': u"orm['auth.Group']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
-            'receiver_users': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'receiver_users'", 'default': 'None', 'to': u"orm['auth.User']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
-            'sender': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
+            'receiver_groups': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'receiver_groups'", 'default': 'None', 'to': u"orm['insuranceimapp.GroupProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
+            'receiver_users': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'receiver_users'", 'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'null': 'True', 'blank': 'True'})
         },
         u'insuranceimapp.report': {
             'Meta': {'object_name': 'Report'},
             'action': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '63'}),
             'description': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'groups_affected': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'groups_affected'", 'default': 'None', 'to': u"orm['auth.Group']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
+            'groups_affected': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'groups_affected'", 'default': 'None', 'to': u"orm['insuranceimapp.GroupProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'messages_affected': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'groups_affected'", 'default': 'None', 'to': u"orm['insuranceimapp.Message']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
             'subaction': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '63'}),
-            'user_responsible': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
-            'users_affected': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'users_affected'", 'default': 'None', 'to': u"orm['auth.User']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'})
+            'user_responsible': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'null': 'True', 'blank': 'True'}),
+            'users_affected': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'users_affected'", 'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'})
         },
         u'insuranceimapp.userinterfacetype': {
             'Meta': {'object_name': 'UserInterfaceType'},
@@ -251,7 +263,8 @@ class Migration(SchemaMigration):
         },
         u'insuranceimapp.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
-            'contacts_list': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'contacts_list'", 'default': 'None', 'to': u"orm['auth.User']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
+            'contacts_list': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'contacts_list_field'", 'default': 'None', 'to': u"orm['insuranceimapp.UserProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
+            'groups_list': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'groups_list'", 'default': 'None', 'to': u"orm['insuranceimapp.GroupProfile']", 'blank': 'True', 'symmetrical': 'False', 'null': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'phonenumber': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '31'}),
             'phonenumber_prefix': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '7'}),

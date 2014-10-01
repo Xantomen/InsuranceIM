@@ -20,9 +20,9 @@ class UserInterfaceType(models.Model):
 class Message(models.Model):  
     content = models.CharField(max_length=63,default='')
     pushed = models.CharField(max_length=15,default='not_pushed')
-    sender = models.ForeignKey(User, null=True, blank=True, default=None)
-    receiver_users = models.ManyToManyField(User,related_name='receiver_users', null=True, blank=True, default=None)
-    receiver_groups = models.ManyToManyField(Group,related_name='receiver_groups', null=True, blank=True, default=None)
+    sender = models.ForeignKey('UserProfile', null=True, blank=True, default=None)
+    receiver_users = models.ManyToManyField('UserProfile',related_name='receiver_users', null=True, blank=True, default=None)
+    receiver_groups = models.ManyToManyField('GroupProfile',related_name='receiver_groups', null=True, blank=True, default=None)
     
     
     def __str__(self):  
@@ -54,10 +54,10 @@ class Report(models.Model):
     action = models.CharField(max_length=63,default='')
     subaction = models.CharField(max_length=63,default='')
     description = models.CharField(max_length=255,default='')
-    user_responsible = models.ForeignKey(User, null=True, blank=True, default=None)
-    users_affected = models.ManyToManyField(User,related_name='users_affected', null=True, blank=True, default=None)
-    groups_affected = models.ManyToManyField(Group,related_name='groups_affected', null=True, blank=True, default=None)
-    messages_affected = models.ManyToManyField(Message,related_name='groups_affected', null=True, blank=True, default=None)
+    user_responsible = models.ForeignKey('UserProfile', null=True, blank=True, default=None)
+    users_affected = models.ManyToManyField('UserProfile',related_name='users_affected', null=True, blank=True, default=None)
+    groups_affected = models.ManyToManyField('GroupProfile',related_name='groups_affected', null=True, blank=True, default=None)
+    messages_affected = models.ManyToManyField('Message',related_name='groups_affected', null=True, blank=True, default=None)
     
     def __str__(self):  
           return self.description     
@@ -98,10 +98,10 @@ class UserProfile(models.Model):
     phonenumber_prefix = models.CharField(max_length=7,default='')
     phonenumber = models.CharField(max_length=31,default='')
     user_active = models.CharField(max_length=31,default='active')
-    contacts_list = models.ManyToManyField(User,related_name='contacts_list', null=True, blank=True, default=None)
-    unread_messages = models.ManyToManyField(Message,related_name='unread_messages', null=True, blank=True, default=None)
-    read_messages = models.ManyToManyField(Message,related_name='read_messages', null=True, blank=True, default=None)
-    #groups_list = models.ManyToManyField('GroupProfile',related_name='groups_list', null=True, blank=True, default=None)
+    contacts_list = models.ManyToManyField('UserProfile',related_name='contacts_list_field', null=True, blank=True, default=None)
+    unread_messages = models.ManyToManyField('Message',related_name='unread_messages', null=True, blank=True, default=None)
+    read_messages = models.ManyToManyField('Message',related_name='read_messages', null=True, blank=True, default=None)
+    groups_list = models.ManyToManyField('GroupProfile',related_name='groups_list', null=True, blank=True, default=None)
     #user_company = models.ForeignKey(Group,null=True,blank=True)
     #modifiedsourcepdfs_categorization_tool = models.ManyToManyField(SourcePdf,related_name='sourcepdfs_modified_categorization_tool', null=True, blank=True, default=None)
     
@@ -137,9 +137,12 @@ class UserProfile(models.Model):
         if message:
             self.read_messages.add(message)
             
-    def addGroup(self,group):
-        if message:
-            self.groups_list.add(group)
+    def addGroup(self,group_profile):
+        if group_profile:
+            self.groups_list.add(group_profile)
+            
+    def getGroupsList(self):
+        return self.groups_list.all()
     
     
      
@@ -156,7 +159,7 @@ post_save.connect(create_user_profile, sender=User)
 class GroupProfile(models.Model):  
     group = models.OneToOneField(Group)
     group_active = models.CharField(max_length=31,default='active')
-    members_list = models.ManyToManyField(User,related_name='members_list', null=True, blank=True, default=None)
+    members_list = models.ManyToManyField('UserProfile',related_name='members_list', null=True, blank=True, default=None)
     
     
     def __str__(self):  
