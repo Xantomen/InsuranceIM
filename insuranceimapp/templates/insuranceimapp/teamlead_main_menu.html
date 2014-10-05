@@ -1,0 +1,96 @@
+
+{% load i18n %}
+
+{% block page_title %}
+<head>
+<title>RecipePrinouts Apps Main Menu</title>
+</head>
+{% endblock page_title %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/main_menu.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
+
+
+<script>
+    
+    $(document).ready(function(){
+        
+        initiateListeners();
+
+		function initiateListeners(){
+			
+			
+			//Click Add Members Button
+			
+			$("#add_members_button").click(function(){
+							
+				action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+		
+				$("#contents_form").submit();
+				
+			});
+			
+			//Click on Leaderboard Button
+			
+			$("#leaderboard_button").click(function(){
+				
+				action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+		
+				$("#contents_form").submit();
+			});
+			
+			//Click on Logout Button
+			
+			$("#logout_button").click(function(){
+				
+				action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+		
+				$("#contents_form").submit();
+			});
+			
+		}
+    
+    });
+    
+
+</script>
+
+<body>
+
+    <form id="contents_form" name="contents_form" action="{% url 'insuranceimapp:teamlead_main_menu' %}" method="post">
+    {% csrf_token %}
+    
+    
+	    <div id="toolspanel_container">
+	            <div id="tools-panel" title="Tools Available">
+	                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
+	                <ul class="menuclass" id="toolspanelmenu">
+	                    
+	                        <li class="list_element"><div id="add_members_button" class="action_button list_button" action_value="add_members"><p>Add Members to {{group_profile.group.name}}</p></div></li>
+	                        
+	                        <li class="list_element"><div id="leaderboard_button" class="action_button list_button" action_value="leaderboard"><p>Leaderboard for {{group_profile.group.name}}</p></div></li>
+	                        
+	                        <li class="list_element"><div id="logout_button" class="action_button list_button" action_value="logout"><p>Logout</p></div></li>
+	                </ul>
+	            </div>
+	            
+	            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
+	    </div>
+
+    </form>
+    
+</body>
+
+

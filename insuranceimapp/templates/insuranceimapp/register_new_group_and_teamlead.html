@@ -11,7 +11,7 @@
 {% endblock config_libs %}
 
 {% block special_libs %} 
-<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/register_new_user.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/register_new_group_and_teamlead.css' %}" />
 
 {% endblock special_libs %}
 
@@ -33,10 +33,17 @@
                 $('#LoginForm').submit();
             },
             "Cancel": function() {
-                window.location.href = window.location.href.replace("/register_new_user","");
+                window.location.href = window.location.href.replace("/register_new_group_and_teamlead","");
             }
           }
           
+        });
+        
+        //When choosing a Group Name from the dropdown list, copies it to the group_name text input
+        
+        $("#group_selector").blur(function(){
+
+        	$("#group_name").val($(this).val())
         });
     
     
@@ -48,13 +55,24 @@
 
 {% block content %}
     <div id="login" title="Log In">
-        <form id="LoginForm" name="LoginForm" action="{% url 'insuranceimapp:register_new_user' %}" method="post">
+        <form id="LoginForm" name="LoginForm" action="{% url 'insuranceimapp:register_new_group_and_teamlead' %}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" name="next" value="{{ next }}" />
         {% endif %}
               
+
           <fieldset>
+          	<label for="group_name">New Group Name</label>
+            <input type="text" name="group_name" id="group_name"  class="text ui-widget-content ui-corner-all" />
+            
+          	<label>Or Existing Group?</label>
+		  	<select id="group_selector">
+		    	<option class="group_option" value=""></option>
+		    	{% for group in groups_list %}
+		    	<option class="group_option" value="{{group.name}}">{{group.name}}</option>
+		    	{% endfor %}
+		  	</select>
             <label for="username">Username</label>
             <input type="text" name="username" id="username"  class="text ui-widget-content ui-corner-all" />
             <label for="email">Email</label>

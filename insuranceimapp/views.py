@@ -12,8 +12,8 @@ from django.views import generic
 from django.utils import timezone
 
 
-from insuranceimapp.viewsfunctions import (app_index_module,app_login_module,register_new_user_module,main_menu_module,
-                                           options_menu_module,group_options_menu_module)
+from insuranceimapp.viewsfunctions import (app_index_module,app_login_module,register_new_group_and_teamlead_module,superuser_main_menu_module,
+                                           teamlead_main_menu_module,options_menu_module,group_options_menu_module)
 
 from insuranceimapp.models import *
 
@@ -25,18 +25,21 @@ def app_login(request):
   
     return app_login_module.app_login(request)
 
-def register_new_user(request):
+def register_new_group_and_teamlead(request):
 
-    return register_new_user_module.register_new_user(request)
+    return register_new_group_and_teamlead_module.register_new_group_and_teamlead(request)
     
-
 def app_index(request):
     
     return app_index_module.app_index(request)
 
-def main_menu(request):
+def superuser_main_menu(request):
     
-    return main_menu_module.main_menu(request)
+    return superuser_main_menu_module.superuser_main_menu(request)
+
+def teamlead_main_menu(request):
+    
+    return teamlead_main_menu_module.teamlead_main_menu(request)
 
 def group_options_menu(request,group_name):
     

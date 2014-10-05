@@ -16,6 +16,11 @@ ul, li {
     list-style-type: none;
 }
 
+li:nth-child(odd){
+	
+	background: rgba(145,187,135,1)
+}
+
 .menuclass {
 width: 100% !important;
 height: 100%;

@@ -26,7 +26,7 @@ html, body{
     fieldset { padding:0; border:0; margin-top:3%; overflow:hidden;}
     fieldset ul{ width:93%; margin-top:10%; margin-bottom:10%; overflow:hidden}
     #login h1 { font-size: 1.2em; margin: .6em 0; }
-    #login { overflow:hidden; }
+    #login { overflow:auto; }
     
     .ui-dialog .ui-dialog-titlebar {
         

@@ -18,7 +18,9 @@ class UserInterfaceType(models.Model):
     
     
 class Message(models.Model):  
-    content = models.CharField(max_length=63,default='')
+    product_name = models.CharField(max_length=63,default='')
+    product_value = models.CharField(max_length=15,default='')
+    
     pushed = models.CharField(max_length=15,default='not_pushed')
     sender = models.ForeignKey('UserProfile', null=True, blank=True, default=None)
     receiver_users = models.ManyToManyField('UserProfile',related_name='receiver_users', null=True, blank=True, default=None)
@@ -95,6 +97,13 @@ class Report(models.Model):
 
 class UserProfile(models.Model):  
     user = models.OneToOneField(User)
+    user_category = models.CharField(max_length=15,default='user')
+    first_name = models.CharField(max_length=31,default='')
+    surname_first_letter = models.CharField(max_length=15,default='')
+    zipcode = models.CharField(max_length=31,default='')
+    city = models.CharField(max_length=31,default='')
+    six_digit_code = models.CharField(max_length=31,default='')
+    
     phonenumber_prefix = models.CharField(max_length=7,default='')
     phonenumber = models.CharField(max_length=31,default='')
     user_active = models.CharField(max_length=31,default='active')
@@ -152,7 +161,13 @@ class UserProfile(models.Model):
     def getGroupsList(self):
         return self.groups_list.all()
     
-    
+    def getOrAddGroupProfile(self):
+        try:
+            group_profile = self.groups_list.all()[0]
+        except:
+            group_profile = GroupProfile.objects.get(group = self.user.groups.all()[0])
+            self.addGroup(group_profile)
+        return group_profile    
      
 def create_user_profile(sender, instance, created, **kwargs):  
     if created:  
@@ -186,6 +201,7 @@ class GroupProfile(models.Model):
     def getMembersList(self):
         return self.members_list.all()
 
+    
      
 def create_group_profile(sender, instance, created, **kwargs):  
     if created:  
