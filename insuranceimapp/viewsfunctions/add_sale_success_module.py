@@ -47,27 +47,40 @@ def add_sale_success(request):
     
     group_profile = user_profile.getOrAddGroupProfile()
     
-    users_list = group_profile.members_list.all()
+    users_list = group_profile.getMembersList()
+    
+    
         
     if action_to_execute == "send_message":
         
-        new_message = Message(product_name = product_name,product_value=product_value)
-        new_message.save()
-        
-        new_message.sender = user_profile
-        new_message.receiver_groups.add(group_profile)
-        
-        users_in_group_except_myself = group_profile.members_list.exclude(user = user_profile.user)
-        
-        for temp_user_profile in users_in_group_except_myself:
+        try:
+            new_message = Message()
+            new_message.save()
             
-            new_message.receiver_users.add(temp_user_profile)
+            new_message.setProductName(product_name)
+            new_message.setProductValue(product_value)
+            new_message.setSender(user_profile)
+            new_message.addReceiverGroup(group_profile)
             
-        common_functions_module.pushMessagesFromGroupToReceivers(group_profile)
+            users_in_group_except_myself = group_profile.getMembersList().exclude(user = user_profile.user)
+            
+            for temp_user_profile in users_in_group_except_myself:
+                
+                new_message.addReceiverUser(temp_user_profile)
+            
+                
+            if common_functions_module.pushMessagesFromGroupToReceivers(group_profile):
+            
+                new_message.setPushed(True) 
+
+                new_message.save()
         
-        new_message.save()
+            print "SUCCESFULLY ADDING SALE SUCCESS"
+            return HttpResponseRedirect(reverse('insuranceimapp:user_main_menu', args=()))
+        except:
+            print "FAILURE IN ADDING SALE SUCCESS"
+            return HttpResponseRedirect(reverse('insuranceimapp:add_sale_success', args=()))
         
-        return HttpResponseRedirect(reverse('insuranceimapp:add_sale_success', args=()))
     if action_to_execute == "back_to_menu":
         return HttpResponseRedirect(reverse('insuranceimapp:user_main_menu', args=()))
 

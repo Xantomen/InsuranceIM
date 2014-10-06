@@ -28,17 +28,23 @@ class Message(models.Model):
     
     
     def __str__(self):  
-          return self.content 
+          return self.product_name 
     
-    def setContent(self,content):
-        if content:
-            self.content = content
+    def setProductName(self,product_name):
+        if product_name:
+            self.product_name = product_name
+            
+    def setProductValue(self,product_value):
+        if product_value:
+            self.product_value = product_value
     
     def setPushed(self,state):
+
         if state == True:
            self.pushed = 'pushed'
         else:
            self.pushed = 'not_pushed'
+        
            
     def setSender(self,sender):
         if sender:
@@ -47,6 +53,9 @@ class Message(models.Model):
     def addReceiverUser(self,receiver):
         if receiver:
             self.receiver_users.add(receiver)
+    
+    def getReceiverUsers(self):
+        return self.receiver_users.all()
     
     def addReceiverGroup(self,receiver):
         if receiver:
@@ -129,7 +138,7 @@ class UserProfile(models.Model):
         if phonenumber:
             self.phonenumber = phonenumber
             
-    def setPushed(self,state):
+    def setActive(self,state):
         if state == True:
            self.user_active = 'active'
         else:
@@ -142,6 +151,10 @@ class UserProfile(models.Model):
     def addUnreadMessage(self,message):
         if message:
             self.unread_messages.add(message)
+    
+    def removeUnreadMessage(self,message):
+        if message:
+            self.unread_messages.remove(message)
             
     def getUnreadMessages(self):
         return self.unread_messages.all()

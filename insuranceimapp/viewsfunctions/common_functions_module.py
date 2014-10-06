@@ -8,25 +8,31 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render, redirect,render_to_response
 import json
 
-def pushMessagesToReceivers(group_profile):
+def pushMessagesFromGroupToReceivers(group_profile):
     
     try:
+
         if group_profile.group_active == "active":
-            
+
             all_messages_from_group = Message.objects.filter(receiver_groups = group_profile)
-            all_messages_not_pushed = all_messages_from_group.exclude("pushed")
-            
-            for message in all_messages_not_pushed:
-                
-                all_receiver_users = message.receiver_users.all()
-                
+
+            all_messages_not_pushed = all_messages_from_group.exclude(pushed = "pushed")
+
+            for temp_message in all_messages_not_pushed:
+
+                all_receiver_users = temp_message.getReceiverUsers()
+
                 for temp_user in all_receiver_users:
-                    
-                    temp_user.unread_messages.add(message)
-                    
-                message.pushed = "pushed"
-                message.save()
-        print "SUCCESS IN PUSHING MESSAGES TO RECEIVERS"        
+    
+                    temp_user.addUnreadMessage(temp_message)
+
+                temp_message.setPushed(True) 
+
+                temp_message.save()
+
+        print "SUCCESS IN PUSHING MESSAGES TO RECEIVERS"
+        return True        
     except:
         print "FAILURE IN PUSHING MESSAGES TO RECEIVERS"
+        return False
         
