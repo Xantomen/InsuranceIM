@@ -1,0 +1,393 @@
+
+{% load i18n %}
+
+{% block page_title %}
+<head>
+<title>RecipePrinouts Apps Main Menu</title>
+</head>
+{% endblock page_title %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/papaparse/papaparse.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery.csv-0.71/jquery.csv-0.71.min.js' %}" ></script>
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_members.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
+
+
+<script>
+    
+    $(document).ready(function(){
+                
+        initiateListeners();
+
+
+		$("members_list").attr("top",$("#add_from_members_list_button").attr("top"));
+
+		function initiateListeners(){
+			
+
+			//Click on Add New User Button
+			
+			$("#add_new_member_button").click(function(){
+				
+				addNewUserPanel();
+				
+				//action = $(this).attr("action_value");
+								
+				//$("#action_to_execute").attr("value",action);
+				
+				//$("#contents_form").submit();
+			});
+			
+			
+			//Click on Cancel and Back to Main Menu
+			
+			$("#back_to_menu_button").click(function(){
+				
+				var action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+		
+				$("#contents_form").submit();
+			});
+			
+			//Click on Delete Member Button
+			
+			$(".delete_member_button").click(function(){
+				
+				var parent_list_user = $(this).closest(".list_user");
+				
+				var pk_value = parent_list_user.attr("pk_value");
+				
+				if(pk_value)
+				{
+					users_to_delete_string = $("#users_to_delete").attr("value") + pk_value + ",";
+					$("#users_to_delete").attr("value",users_to_delete_string);
+				}
+				
+				$(parent_list_user).remove();
+				
+				//$("#contents_form").submit();
+			});
+			
+			//Add from Members List Button, clicks the hidden members_list file chooser
+			
+			$("#add_from_members_list_button").click(function(){
+				
+				$("#members_list").trigger("change");			
+								
+				//$("#contents_form").submit();
+			});
+			
+			
+			
+			
+			//Click on Accept and Save Changes Button
+			
+			$("#save_changes_button").click(function(){
+				
+				
+				var action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+				
+				users_data_dictionary_list = [];
+								
+				$(".list_user").each(function(){
+					
+					self = $(this);
+					
+					var users_data_dictionary = {};
+					
+					users_data_dictionary.pk = self.attr("pk_value");
+					users_data_dictionary.first_name = self.find(".name").val();
+					users_data_dictionary.surname_first_letter = self.find(".first_letter").val();
+					users_data_dictionary.zipcode = self.find(".zip_code").val();
+					users_data_dictionary.city = self.find(".city").val();
+					users_data_dictionary.six_digit_code = self.find(".unique_code").val();
+	
+					users_data_dictionary_list.push(users_data_dictionary);
+					
+					//$("#contents_form").submit();
+				});
+				
+				stringified_dictionary = JSON.stringify(users_data_dictionary_list);
+				
+				$("#users_dictionary_string").attr("value",stringified_dictionary);
+				
+				$("#contents_form").submit();
+			});
+			
+			
+			/*parent_list_user = $(this).closest(".list_user");
+				
+				unique_code = parent_list_user.find(".unique_code").val();
+				
+				users_to_delete_string = $("#users_to_delete").attr("value") + unique_code + ",";
+				$("#users_to_delete").attr("value",users_to_delete_string);
+				
+				$(parent_list_user).remove();	*/
+			
+		}
+		
+		//Create all the html content that a new User has and prepend it to just before the +Add a User Button
+		function addNewUserPanel()
+		{
+			
+			
+			var s = '';
+			s +='<li pk_value="" class="list_user list_element">';
+                	s +='<div id="register_new_group_button" class="action_button list_button" action_value="register_new_group_button">';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Name:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="name data_text_field" type="text" value="" placeholder="Write here the Name"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">First Letter Surname:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="first_letter data_text_field" type="text" value="" placeholder="Write the First Letter of Family Name here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">City:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="city data_text_field" type="text" value="" placeholder="Write the City here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Zip Code:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="zip_code data_text_field" type="text" value="" placeholder="Write the Zip Code here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Unique 6 Digit Code:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="unique_code data_text_field" type="text" value="" placeholder="Write the Unique 6 Digit Code here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_delete">';
+                			s +='<div class="delete_member_button action_button list_button" action_value="delete_member"><p>Delete Member</p></div>';
+                		s +='</div>';
+                		
+                		
+                	s +='</div>';
+                s +='</li>';
+			
+			
+			$("#toolspanelmenu").append(s);
+			
+			$(".delete_member_button").click(function(){
+				
+				var parent_list_user = $(this).closest(".list_user");
+				
+				$(parent_list_user).remove();		
+				
+				//$("#contents_form").submit();
+			});
+	
+		}
+		
+		if(isAPIAvailable()) {
+	      $('#members_file').bind('change', handleFileSelect);
+	    }
+    
+    	function isAPIAvailable() {
+		    // Check for the various File API support.
+		    if (window.File && window.FileReader && window.FileList && window.Blob) {
+		      // Great success! All the File APIs are supported.
+		      return true;
+		    } else {
+		      // source: File API availability - http://caniuse.com/#feat=fileapi
+		      // source: <output> availability - http://html5doctor.com/the-output-element/
+		      document.writeln('The HTML5 APIs used in this form are only available in the following browsers:<br />');
+		      // 6.0 File API & 13.0 <output>
+		      document.writeln(' - Google Chrome: 13.0 or later<br />');
+		      // 3.6 File API & 6.0 <output>
+		      document.writeln(' - Mozilla Firefox: 6.0 or later<br />');
+		      // 10.0 File API & 10.0 <output>
+		      document.writeln(' - Internet Explorer: Not supported (partial support expected in 10.0)<br />');
+		      // ? File API & 5.1 <output>
+		      document.writeln(' - Safari: Not supported<br />');
+		      // ? File API & 9.2 <output>
+		      document.writeln(' - Opera: Not supported');
+		      return false;
+		    }
+		  }
+		
+		  function handleFileSelect(evt) {
+		    var files = evt.target.files; // FileList object
+		    var file = files[0];
+		
+		    // read the file contents
+		    readFile(file);
+		
+		    
+		  }
+		
+		  function readFile(file) {
+		    var reader = new FileReader();
+		    reader.readAsText(file);
+		    reader.onload = function(event){
+		      var csv = event.target.result;
+		      var data = $.csv.toArrays(csv);
+		      var html = '';
+		      for(var row in data) {
+		        
+
+		        addNewUserPanel(data[row][0],data[row][1],data[row][2],data[row][3],data[row][4]);
+		        
+		      }
+		      
+		    };
+		    reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
+		    
+		  }
+		  
+		  function addNewUserPanel(first_name,first_letter,city,zip_code,unique_code)
+		{
+			
+			
+			var s = '';
+			s +='<li pk_value="" class="list_user list_element">';
+                	s +='<div id="register_new_group_button" class="action_button list_button" action_value="register_new_group_button">';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Name:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="name data_text_field" type="text" value="'+first_name+'" placeholder="Write here the Name"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">First Letter Surname:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="first_letter data_text_field" type="text" value="'+first_letter+'" placeholder="Write the First Letter of Family Name here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">City:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="city data_text_field" type="text" value="'+city+'" placeholder="Write the City here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Zip Code:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="zip_code data_text_field" type="text" value="'+zip_code+'" placeholder="Write the Zip Code here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_container">';
+                			s +='<div class="label_field">Unique 6 Digit Code:</div>';
+                			s +='<div class="data_field">';
+                				s +='<input class="unique_code data_text_field" type="text" value="'+unique_code+'" placeholder="Write the Unique 6 Digit Code here"/>';
+                			s +='</div>';
+                		s +='</div>';
+                		s +='<div class="data_field_delete">';
+                			s +='<div class="delete_member_button action_button list_button" action_value="delete_member"><p>Delete Member</p></div>';
+                		s +='</div>';
+                		
+                		
+                	s +='</div>';
+                s +='</li>';
+			
+			
+			$("#toolspanelmenu").append(s);
+			
+			$(".delete_member_button").click(function(){
+				
+				var parent_list_user = $(this).closest(".list_user");
+				
+				$(parent_list_user).remove();		
+				
+				//$("#contents_form").submit();
+			});
+	
+		}
+		  
+    
+    });
+    
+
+</script>
+
+<body>
+
+    <form id="contents_form" name="contents_form" action="{% url 'insuranceimapp:add_members' %}" method="post">
+    {% csrf_token %}
+    
+    
+	    <div id="toolspanel_container">
+	            <div id="tools-panel" title="Tools Available">
+	                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
+	                <ul class="menuclass" id="toolspanelmenu">
+	                        
+	                        {% for user_profile in users_list %}
+	                        <li pk_value="{{user_profile.pk}}" class="list_user list_element">
+	                        	<div id="register_new_group_button" class="action_button list_button" action_value="register_new_group_button">
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">Name:</div>
+	                        			<div class="data_field">
+	                        				<input class="name data_text_field" type="text" value="{{user_profile.first_name}}" placeholder="Write here the Name"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">First Letter Surname:</div>
+	                        			<div class="data_field">
+	                        				<input class="first_letter data_text_field" type="text" value="{{user_profile.surname_first_letter}}" placeholder="Write the First Letter of Family Name here"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">City:</div>
+	                        			<div class="data_field">
+	                        				<input class="city data_text_field" type="text" value="{{user_profile.city}}" placeholder="Write the City here"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">Zip Code:</div>
+	                        			<div class="data_field">
+	                        				<input class="zip_code data_text_field" type="text" value="{{user_profile.zipcode}}" placeholder="Write the Zip Code here"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">Unique 6 Digit Code:</div>
+	                        			<div class="data_field">
+	                        				<input class="unique_code data_text_field" type="text" value="{{user_profile.six_digit_code}}" placeholder="Write the Unique 6 Digit Code here"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_delete">
+	                        			<div class="delete_member_button action_button list_button" action_value="delete_member"><p>Delete Member</p></div>
+	                        		</div>
+	                        		
+	                        		
+	                        	</div>
+	                        </li>
+	                        {% endfor %}
+	                        
+	                </ul>
+	                <ul class="menuclass" id="optionsmenu">
+	                        <li class="option_element"><div id="add_new_member_button" class="action_button list_button" action_value="add_new_member"><p>+ Add New Member</p></div></li>
+	                        <li class="option_element"><div id="add_from_members_list_button" class="action_button list_button" action_value="add_from_members_list"><p>Add from Members List</p><input type="file" id="members_file"/></div></li>
+	                        <li class="option_element"><div id="save_changes_button" class="action_button list_button" action_value="save_changes"><p>Accept and Save Changes (Deletes Duplicates)</p></div></li>
+	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Cancel and Back to Menu</p></div></li>
+	            	</ul>
+	            </div>
+	            
+	            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
+	            
+	            <input type="text" name="users_to_delete" id="users_to_delete" class="invisible" value=""/>
+	            
+	            <input type="text" name="users_dictionary_string" id="users_dictionary_string" class="invisible" value=""/>
+	    </div>
+
+    </form>
+    
+</body>
+
+

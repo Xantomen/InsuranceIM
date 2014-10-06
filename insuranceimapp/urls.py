@@ -49,7 +49,7 @@ urlpatterns = patterns('',
     # delete members.
     
     # ex: /insuranceimapp/add_members
-    url(r'^teamlead_main_menu', views.teamlead_main_menu, name='teamlead_main_menu'),  
+    url(r'^add_members', views.add_members, name='add_members'),  
     
     
     #
