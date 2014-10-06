@@ -30,10 +30,38 @@
 			
 			$("#add_sale_success_button").click(function(){
 							
-				action = $(this).attr("action_value");
+				var action = $(this).attr("action_value");
 								
 				$("#action_to_execute").attr("value",action);
 		
+				$("#contents_form").submit();
+				
+			});
+			
+			
+			//Click Clear All Messages Button
+			
+			$("#clear_all_messages_button").click(function(){
+							
+				var action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+			
+				$(".list_message").each(function(){
+					
+					markMessageAsToClear($(this));
+				});
+			
+				$("#contents_form").submit();
+				
+			});
+			
+			//When clicking on any Unread Message
+			
+			$(".list_message").click(function(){
+
+				markMessageAsToClear($(this));
+			
 				$("#contents_form").submit();
 				
 			});
@@ -45,13 +73,20 @@
 			
 			$("#logout_button").click(function(){
 				
-				action = $(this).attr("action_value");
+				var action = $(this).attr("action_value");
 								
 				$("#action_to_execute").attr("value",action);
 		
 				$("#contents_form").submit();
 			});
 			
+			
+		}
+		
+		function markMessageAsToClear(message_object)
+		{
+			composed_message = $("#messages_to_clear").attr("value") + "," + message_object.attr("pk_value");
+			$("#messages_to_clear").attr("value",composed_message);
 		}
     
     });
@@ -70,11 +105,16 @@
 	                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
 	                {% if messages_list|length == 0 %}
 	                <ul class="menuclass no_new_messages_toolspanelmenu" id="toolspanelmenu">    
-
+					
+					
+					
 	                </ul>
 	                {% else %}
+	           
 	                <ul class="menuclass" id="toolspanelmenu">
-	                    
+	                {% for message in messages_list %}
+	                    	<li pk_value = "{{message.pk}}" class="list_message"><table class="centered_table_text action_button list_button" action_value="clean_message"><td>There has been a sale of {{message.product_name}} for {{message.product_value}} Euros </td></table></li>
+	                {% endfor %}
 	                </ul>
 	                {% endif %}
 	                
@@ -84,14 +124,23 @@
 	                <ul class="menuclass" id="optionsmenu">
 	                {% endif %}
 	                        <li class="list_element"><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
+	                        {% if messages_list|length == 0 %}
+	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
+	                        {% else %}
+	                        <li class="list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
+	                        {% endif %}
 	                        <li class="invisible list_element"><div id="logout_button" class="action_button list_button" action_value="logout"><p>Logout</p></div></li>
+	            			
 	            	</ul>
 	            </div>
 	            
 	            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
+	            <input type="text" name="messages_to_clear" id="messages_to_clear" class="invisible" value=""/>
 	    </div>
 
     </form>
+    
+    <meta http-equiv="refresh" content="30" />
     
 </body>
 
