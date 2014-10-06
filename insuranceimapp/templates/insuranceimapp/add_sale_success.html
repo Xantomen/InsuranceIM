@@ -1,0 +1,136 @@
+
+{% load i18n %}
+
+{% block page_title %}
+<head>
+<title>RecipePrinouts Apps Main Menu</title>
+</head>
+{% endblock page_title %}
+
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/papaparse/papaparse.min.js' %}" ></script>
+<script type="text/javascript" src="{% static 'insuranceimapp/jquery.csv-0.71/jquery.csv-0.71.min.js' %}" ></script>
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_sale_success.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
+
+
+<script>
+    
+    $(document).ready(function(){
+                
+        initiateListeners();
+
+
+		$("members_list").attr("top",$("#add_from_members_list_button").attr("top"));
+
+		function initiateListeners(){
+			
+
+			//Click on Cancel and Back to Main Menu
+			
+			$("#back_to_menu_button").click(function(){
+				
+				var action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+		
+				$("#contents_form").submit();
+			});
+
+			
+			//Click on Send Button
+			
+			$("#send_message_button").click(function(){
+				
+				
+				var action = $(this).attr("action_value");
+								
+				$("#action_to_execute").attr("value",action);
+				
+				can_be_sent = true;
+				
+				if(!$("#product_name").val())
+				{
+					can_be_sent = false;
+				}
+				if(!$("#product_value").val())
+				{
+					can_be_sent = false;
+				}
+				
+				if(can_be_sent == true)
+				{
+					$("#contents_form").submit();
+				}
+				
+			});
+			
+			
+			
+		}
+		
+		
+	
+		
+		
+	
+    
+    });
+    
+
+</script>
+
+<body>
+
+    <form id="contents_form" name="contents_form" action="{% url 'insuranceimapp:add_sale_success' %}" method="post">
+    {% csrf_token %}
+    
+    
+	    <div id="toolspanel_container">
+	            <div id="tools-panel" title="Tools Available">
+	                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
+	                <ul class="menuclass" id="toolspanelmenu">
+	                        
+	                        <li class="list_user list_element">
+	                        	<div id="send_message_container" class="action_button list_button" action_value="register_new_group_button">
+	                        		<div class="data_field_container">
+	                        			<div class="label_field">Name of Product:</div>
+	                        			<div class="data_field">
+	                        				<input id="product_name" name="product_name" class="data_text_field" type="text" value="" placeholder="Write here the Product Name"/>
+	                        			</div>
+	                        		</div>
+	                        		<div class="data_field_container">
+	                        			<div id="product_value_label" class="label_field">Value of Product:</div>
+	                        			<div class="data_field">
+	                        				<input id="product_value" name="product_value" class="data_text_field" type="text" value="" placeholder="Write the Value of Product"/>
+	                        			</div>
+	                        		</div>
+	                        		
+	                        	</div>
+	                        </li>
+	                        
+	                </ul>
+	                <ul class="menuclass" id="optionsmenu">
+	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>Send</p></div></li>
+	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Cancel and Back to Menu</p></div></li>
+	            	</ul>
+	            </div>
+	            
+	            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
+	            
+	            <input type="text" name="users_to_delete" id="users_to_delete" class="invisible" value=""/>
+	            
+	            <input type="text" name="users_dictionary_string" id="users_dictionary_string" class="invisible" value=""/>
+	    </div>
+
+    </form>
+    
+</body>
+
+

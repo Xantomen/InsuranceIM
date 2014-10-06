@@ -24,7 +24,7 @@ def app_login(request):
                 if user_profile.user_category == "user":
                     login(request, user)
                     #return HttpResponseRedirect('enersectapp:main')
-                    return HttpResponseRedirect(reverse('insuranceimapp:main_menu', args=()))
+                    return HttpResponseRedirect(reverse('insuranceimapp:user_main_menu', args=()))
                     #return reverse('enersectapp:main', args=())
                 elif user_profile.user_category == "teamleader":
                     login(request, user)

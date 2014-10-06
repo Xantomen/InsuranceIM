@@ -26,8 +26,25 @@ html, body{
     background-image:     -ms-linear-gradient(top, #202020, #171717) !important;
     background-image:      -o-linear-gradient(top, #202020, #171717) !important;
     background-image:         linear-gradient(top, #202020, #171717) !important;
+    
+    font-size:30px;
 
 }
+
+input {
+	
+	letter-spacing:1px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:20px;
+}
+
+table {
+	
+	letter-spacing:1px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:100%;
+}
+
 
 .ui-widget {
     font-size:80% ;

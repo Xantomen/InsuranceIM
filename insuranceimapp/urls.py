@@ -53,6 +53,19 @@ urlpatterns = patterns('',
     
     
     #
+    # User Main menu (user_main_menu). Shows the button Add Sale Success and the last message of success
+    # from another user.
+    # ex: /insuranceimapp/user_main_menu
+    url(r'^user_main_menu', views.user_main_menu, name='user_main_menu'),  
+    
+    
+    #
+    # Add Sale Success Window. Let's you add a product and value and send it to the server, to be sent
+    # to the rest.
+    # ex: /insuranceimapp/add_sale_success
+    url(r'^add_sale_success', views.add_sale_success, name='add_sale_success'),  
+    
+    #
     # Options menu (options_menu). Shows the available options: Logout, Deactivate User, Edit Profile
     # ex: /insuranceimapp/options_menu
     #url(r'^options_menu', views.options_menu, name='options_menu'), 

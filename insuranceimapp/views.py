@@ -14,7 +14,7 @@ from django.utils import timezone
 
 from insuranceimapp.viewsfunctions import (app_index_module,app_login_module,register_new_group_and_teamlead_module,
                                            superuser_main_menu_module,teamlead_main_menu_module,
-                                           options_menu_module,
+                                           options_menu_module,user_main_menu_module,add_sale_success_module,
                                            add_members_module,leaderboard_module)
 
 from insuranceimapp.models import *
@@ -43,9 +43,17 @@ def teamlead_main_menu(request):
     
     return teamlead_main_menu_module.teamlead_main_menu(request)
 
+def user_main_menu(request):
+    
+    return user_main_menu_module.user_main_menu(request)
+
 def add_members(request):
     
     return add_members_module.add_members(request)
+
+def add_sale_success(request):
+    
+    return add_sale_success_module.add_sale_success(request)
 
 def leaderboard(request):
     

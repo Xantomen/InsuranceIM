@@ -1,16 +1,6 @@
-input#group_text_field {
-	
-	width: 50%;
-	height: 100%;
-	color: black;
-	background-color: transparent;
-	text-align: center;
-	letter-spacing: 1px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 100%;
-	
-}	
     
+ 
+  
   
 ul, li {
     list-style-type: none;
@@ -34,10 +24,22 @@ li:nth-child(odd){
 	overflow:auto;
 }
 
+.no_new_messages_toolspanelmenu {
+	
+	height:0% !important;
+}
+
 #optionsmenu {
 	
 	height: 26%;
+	display:table;
+	vertical-align:middle;
+}
+
+
+.no_new_messages_optionsmenu {
 	
+	height:90% !important;
 }
 
 #members_file {
@@ -62,12 +64,24 @@ height: 50%;
 
 .list_element{
 	
-	background: rgba(145,180,187,1);
-	border: 2px solid black;
-	text-align: center;
-	color: black;
-	height: 13%;
+
+	position:relative;
+
+	height: 99%;
 	width: 99%;
+	
+	
+}
+
+
+
+.centered_table_text {
+	
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+	color:black;
 }
 
 .option_element{

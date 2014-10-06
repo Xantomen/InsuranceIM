@@ -143,6 +143,9 @@ class UserProfile(models.Model):
         if message:
             self.unread_messages.add(message)
             
+    def getUnreadMessages(self):
+        return self.unread_messages.all()
+            
     def addReadMessage(self,message):
         if message:
             self.read_messages.add(message)
