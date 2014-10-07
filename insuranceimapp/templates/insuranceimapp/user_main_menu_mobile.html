@@ -117,7 +117,7 @@
 	                {% endfor %}
 	                </ul>
 	                {% endif %}
-	                
+	                {% if flavour == "mobile" %}<div>THIS IS MOBIIIIIIIIIIIIIIIIILE!!!!</div>{% endif %}
 	                {% if messages_list|length == 0 %}
 	                <ul class="menuclass no_new_messages_optionsmenu" id="optionsmenu">
 	                {% else %}
@@ -125,7 +125,6 @@
 	                {% endif %}
 	                        
 	                        {% if messages_list|length == 0 %}
-	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
 	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
 	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
 	                        {% else %}

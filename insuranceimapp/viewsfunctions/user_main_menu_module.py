@@ -63,7 +63,6 @@ def user_main_menu(request):
                     print "Message PK doesn't match"
        
     context = {"group_profile":group_profile,"messages_list":messages_list}
-    if common_functions_module.mobileBrowser(request):
-        return render(request,'insuranceimapp/user_main_menu_mobile.html',context)
-    else:
-        return render(request,'insuranceimapp/user_main_menu.html',context)
+
+    return render(request,'insuranceimapp/user_main_menu_mobile.html',context)
+    

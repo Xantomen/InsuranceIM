@@ -29,7 +29,7 @@ def mobileBrowser(request):
     ''' Super simple device detection, returns True for mobile devices '''
  
     mobile_browser = False
-    ua = request.META['HTTP_USER_AGENT'].lower()[0:4]
+    ua = request.META.get('HTTP_USER_AGENT', '').lower()[0:4]
  
     if (ua in mobile_uas):
         mobile_browser = True
