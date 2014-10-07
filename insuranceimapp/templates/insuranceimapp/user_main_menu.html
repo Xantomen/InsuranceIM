@@ -9,9 +9,19 @@
 
 {% load staticfiles %}
 
+
+
+	                
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
+
+{% if flavour == "full" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu.css' %}" /> 
+{% endif %}
+{% if flavour == "mobile" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu_mobile.css' %}" /> 
+{% endif %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu.css' %}" /> 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />

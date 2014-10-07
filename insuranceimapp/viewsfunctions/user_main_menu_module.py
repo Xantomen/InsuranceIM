@@ -64,5 +64,5 @@ def user_main_menu(request):
        
     context = {"group_profile":group_profile,"messages_list":messages_list}
 
-    return render(request,'insuranceimapp/user_main_menu_mobile.html',context)
+    return render(request,'insuranceimapp/user_main_menu.html',context)
     
