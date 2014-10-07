@@ -15,8 +15,13 @@
 <script type="text/javascript" src="{% static 'insuranceimapp/papaparse/papaparse.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery.csv-0.71/jquery.csv-0.71.min.js' %}" ></script>
 
-
+{% if flavour == "full" %}
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_sale_success.css' %}" /> 
+{% endif %}
+{% if flavour == "mobile" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_sale_success_mobile.css' %}" /> 
+{% endif %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -130,6 +135,13 @@
 	    </div>
 
     </form>
+    
+    {% if flavour == "full" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	{% if flavour == "mobile" %}
+	<!--<meta http-equiv="refresh" content="1" />-->
+	{% endif %}
     
 </body>
 

@@ -14,7 +14,7 @@ html, body{
     background:url("images/body.jpg");
 	background-repeat:repeat;
 
-	color:#fff;
+	color:#E7E7E7;
 	letter-spacing:1px;
 	font-family:Georgia, "Times New Roman", Times, serif;
     
@@ -27,15 +27,43 @@ html, body{
     background-image:      -o-linear-gradient(top, #202020, #171717) !important;
     background-image:         linear-gradient(top, #202020, #171717) !important;
     
-    font-size:15px;
+    font-size:30px;
 
 }
+
+li:nth-child(1n){
+	
+	background: #296AB3 !important;
+}
+
+li:nth-child(2n){
+	
+	background: #5C97D9 !important;
+}
+
+li:nth-child(3n){
+	
+	background: #1DB587 !important;
+}
+
+li:nth-child(4n){
+	
+	background: #4034BC !important;
+}
+
+li:nth-child(5n){
+	
+	background: #51DAB1 !important;
+}
+
+
+
 
 input {
 	
 	letter-spacing:1px;
 	font-family:Georgia, "Times New Roman", Times, serif;
-	font-size:15px;
+	font-size:20px;
 }
 
 table {
@@ -103,7 +131,7 @@ table {
 }
  
 .menuclass {
-    width:92.5% !important;
+    width:92.5%;
 }
 
 

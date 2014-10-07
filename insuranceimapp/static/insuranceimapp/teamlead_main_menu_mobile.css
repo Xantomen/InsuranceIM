@@ -1,6 +1,9 @@
+body {
+	
+	font-size: 250% !important;
+}
 
-    
-  
+
 ul, li {
     list-style-type: none;
 }
@@ -11,8 +14,10 @@ li:nth-child(odd){
 }
 
 .menuclass {
-width: 92.5% !important;
+width: 100% !important;
 height: 100%;
+padding: 0 !important;
+
 }
 
 .list_element{

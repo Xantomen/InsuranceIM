@@ -3,7 +3,7 @@
 
 {% block page_title %}
 <head>
-<title>RecipePrinouts Apps Main Menu</title>
+<title>InsuranceIM App Main Menu</title>
 </head>
 {% endblock page_title %}
 
@@ -13,7 +13,14 @@
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
 
-<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/main_menu.css' %}" /> 
+{% if flavour == "full" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/teamlead_main_menu.css' %}" /> 
+{% endif %}
+{% if flavour == "mobile" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/teamlead_main_menu_mobile.css' %}" /> 
+{% endif %}
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -77,12 +84,12 @@
 	            <div id="tools-panel" title="Tools Available">
 	                <!--<p class="validateTips_ToolsAvailable">Comment paragraph</p>-->
 	                <ul class="menuclass" id="toolspanelmenu">
-	                    
-	                        <li class="list_element"><div id="add_members_button" class="action_button list_button" action_value="add_members"><p>Add Members to {{group_profile.group.name}}</p></div></li>
+	                    	
+	                        <li class="list_element"><table id="add_members_button" class="centered_table_text action_button list_button" action_value="add_members"><td>Add Members to {{group_profile.group.name}}</td></table></li>
 	                        
 	                        <!--<li class="list_element"><div id="leaderboard_button" class="action_button list_button" action_value="leaderboard"><p>Leaderboard for {{group_profile.group.name}}</p></div></li>-->
 	                        
-	                        <li class="list_element"><div id="logout_button" class="action_button list_button" action_value="logout"><p>Logout</p></div></li>
+	                        <li class="list_element"><table id="logout_button" class="centered_table_text action_button list_button" action_value="logout"><td>Logout</td></table></li>
 	                </ul>
 	            </div>
 	            
@@ -90,6 +97,13 @@
 	    </div>
 
     </form>
+    
+    {% if flavour == "full" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	{% if flavour == "mobile" %}
+	<!--<meta http-equiv="refresh" content="1" />-->
+	{% endif %}
     
 </body>
 

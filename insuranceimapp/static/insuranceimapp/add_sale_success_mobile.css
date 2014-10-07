@@ -1,4 +1,17 @@
-    
+body {
+	
+	font-size: 200% !important;
+}
+
+input {
+	
+	font-size: 75% !important;
+}
+
+table {
+	
+	font-size: 100% !important;
+}      
   
 ul, li {
     list-style-type: none;
@@ -10,13 +23,15 @@ li:nth-child(odd){
 }
 
 .menuclass {
-	width: 92.5% !important;
-
+	width: 100% !important;
+	padding: 0 !important;
 }
+
 
 #toolspanelmenu {
 	
-	height: 69%;
+	margin-top:5%;
+	height: 50%;
 
 	
 	overflow:auto;
@@ -24,7 +39,8 @@ li:nth-child(odd){
 
 #optionsmenu {
 	
-	height: 25%;
+	height: 40%;
+	
 	
 }
 
@@ -46,10 +62,10 @@ height: 50%;
 	border: 2px solid black;
 	text-align: center;
 
-	height: 69%;
-	left: 25%;
+	height: 50%;
+	left: 10%;
 	position: absolute;
-	width: 48%;
+	width: 80%;
 }
 
 .option_element{
@@ -79,6 +95,7 @@ height: 50%;
 	height: 31%;
 	padding-top: 10%;
 	font-size: 133%;
+	
 }
 
 #product_value_label {
@@ -95,9 +112,11 @@ height: 50%;
 }
 
 .data_text_field {
-	width: 68%;
+	margin-top:5%;
+	width: 80%;
 	text-align: center;
 	height: 90%;
+	
 }
 
 

@@ -15,8 +15,14 @@
 <script type="text/javascript" src="{% static 'insuranceimapp/papaparse/papaparse.min.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery.csv-0.71/jquery.csv-0.71.min.js' %}" ></script>
 
-
+{% if flavour == "full" %}
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_members.css' %}" /> 
+{% endif %}
+{% if flavour == "mobile" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/add_members_mobile.css' %}" /> 
+{% endif %}
+	
+
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -174,12 +180,13 @@
                 				s +='<input class="unique_code data_text_field" type="text" value="" placeholder="Write the Unique 6 Digit Code here"/>';
                 			s +='</div>';
                 		s +='</div>';
+                		s +='</div>';
                 		s +='<div class="data_field_delete">';
                 			s +='<div class="delete_member_button action_button list_button" action_value="delete_member"><p>Delete Member</p></div>';
                 		s +='</div>';
                 		
                 		
-                	s +='</div>';
+                	
                 s +='</li>';
 			
 			
@@ -258,7 +265,7 @@
 			
 			var s = '';
 			s +='<li pk_value="" class="list_user list_element">';
-                	s +='<div id="register_new_group_button" class="action_button list_button" action_value="register_new_group_button">';
+                	s +='<div id="data_fields_panel" class="action_button list_button" action_value="register_new_group_button">';
                 		s +='<div class="data_field_container">';
                 			s +='<div class="label_field">Name:</div>';
                 			s +='<div class="data_field">';
@@ -289,12 +296,13 @@
                 				s +='<input class="unique_code data_text_field" type="text" value="'+unique_code+'" placeholder="Write the Unique 6 Digit Code here"/>';
                 			s +='</div>';
                 		s +='</div>';
+                		s +='</div>';
                 		s +='<div class="data_field_delete">';
                 			s +='<div class="delete_member_button action_button list_button" action_value="delete_member"><p>Delete Member</p></div>';
                 		s +='</div>';
                 		
                 		
-                	s +='</div>';
+                	
                 s +='</li>';
 			
 			
@@ -330,7 +338,7 @@
 	                        
 	                        {% for user_profile in users_list %}
 	                        <li pk_value="{{user_profile.pk}}" class="list_user list_element">
-	                        	<div id="register_new_group_button" class="action_button list_button" action_value="register_new_group_button">
+	                        	<div id="data_fields_panel" class="action_button list_button" action_value="register_new_group_button">
 	                        		<div class="data_field_container">
 	                        			<div class="label_field">Name:</div>
 	                        			<div class="data_field">
@@ -361,13 +369,14 @@
 	                        				<input class="unique_code data_text_field" type="text" value="{{user_profile.six_digit_code}}" placeholder="Write the Unique 6 Digit Code here"/>
 	                        			</div>
 	                        		</div>
+	                        		</div>
 	                        		<div class="data_field_delete">
 	                        			<div class="user_name action_button list_button">{{user_profile.user.username}}</div>
 	                        			<div class="delete_member_button action_button list_button" action_value="delete_member">Delete</div>
 	                        		</div>
 	                        		
 	                        		
-	                        	</div>
+	                        	
 	                        </li>
 	                        {% endfor %}
 	                        
@@ -388,6 +397,13 @@
 	    </div>
 
     </form>
+    
+    {% if flavour == "full" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	{% if flavour == "mobile" %}
+	<!--<meta http-equiv="refresh" content="1" />-->
+	{% endif %}
     
 </body>
 

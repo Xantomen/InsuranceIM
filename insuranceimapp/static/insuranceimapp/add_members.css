@@ -1,15 +1,17 @@
-input#group_text_field {
+body {
 	
-	width: 50%;
-	height: 100%;
-	color: black;
-	background-color: transparent;
-	text-align: center;
-	letter-spacing: 1px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 100%;
+	font-size: 50% !important;
+}
+
+input {
 	
-}	
+	font-size: 100% !important;
+}
+
+table {
+	
+	font-size: 50% !important;
+}
     
   
 ul, li {
@@ -22,7 +24,7 @@ li:nth-child(odd){
 }
 
 .menuclass {
-	width: 100% !important;
+	width: 92.5% !important;
 
 }
 
@@ -65,7 +67,7 @@ height: 50%;
 	background: rgba(145,180,187,1);
 	border: 2px solid black;
 	text-align: center;
-	color: black;
+
 	height: 13%;
 	width: 99%;
 }
@@ -75,7 +77,7 @@ height: 50%;
 	background: rgba(145,180,187,1);
 	border: 2px solid black;
 	text-align: center;
-	color: black;
+
 	height: 23%;
 	width: 99%;
 }
@@ -104,12 +106,23 @@ height: 50%;
 	/*background-color: yellow;*/
 	width:100%;
 	height:48%;
+	
 
+}
+
+div#data_fields_panel {
+	display: inline;
+	width: 90%;
+}
+
+.data_text_field {
+	
+	text-align:center;
 }
 
 .data_field_delete {
 	
-	background-color: rgba(196,154,176,1);
+	background-color: #BF90A4;
 	display: inline-block;
 	float: left;
 	height: 100%;

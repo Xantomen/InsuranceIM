@@ -1,3 +1,18 @@
+body {
+	
+	font-size: 100% !important;
+}
+
+/*input {
+	
+	font-size: 100% !important;
+}
+
+table {
+	
+	font-size: 100% !important;
+}*/
+
     
   
 ul, li {
@@ -10,7 +25,8 @@ li:nth-child(odd){
 }
 
 .menuclass {
-	width: 92.5% !important;
+	width: 100% !important;
+	padding: 0 !important;
 
 }
 
@@ -24,10 +40,18 @@ li:nth-child(odd){
 
 #optionsmenu {
 	
-	height: 25%;
+	height: 26%;
 	
 }
 
+#members_file {
+	
+	position: absolute;
+	display: block;
+	top: 79.5%;
+	width: 100%;
+	opacity:0;
+}
 
 .user_name {
 height: 45%;
@@ -46,10 +70,8 @@ height: 50%;
 	border: 2px solid black;
 	text-align: center;
 
-	height: 69%;
-	left: 25%;
-	position: absolute;
-	width: 48%;
+	height: 45%;
+	width: 99%;
 }
 
 .option_element{
@@ -58,15 +80,14 @@ height: 50%;
 	border: 2px solid black;
 	text-align: center;
 
-	height: 46%;
+	height: 23%;
 	width: 99%;
 }
 
 
 .data_field_container {
 	
-	/*background-color: red;*/
-	width: 100%;
+	width: 33%;
 	height: 50%;
 	display: inline-block;
 	float: left;
@@ -74,30 +95,33 @@ height: 50%;
 
 .label_field {
 	
-	/*background-color: blue;*/
+	/*background-color:blue;*/
 	width: 100%;
-	height: 31%;
-	padding-top: 10%;
-	font-size: 133%;
+	height: 38%;
+	padding-top: 3%;
 }
 
-#product_value_label {
-	
-	padding-top: 5%;
-}
 
 .data_field {
 	
 	/*background-color: yellow;*/
-	width: 100%;
-	height: 30%;
+	width:100%;
+	height:48%;
 
 }
 
-.data_text_field {
-	width: 68%;
-	text-align: center;
-	height: 90%;
+div#data_fields_panel {
+	display: block;
+	width: 76%;
+}
+
+.data_field_delete {
+	
+	background-color: #BF90A4;
+	display: inline-block;
+	/* float: left; */
+	height: 100%;
+	width: 24%;
 }
 
 

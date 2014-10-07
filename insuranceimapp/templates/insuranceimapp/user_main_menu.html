@@ -9,9 +9,7 @@
 
 {% load staticfiles %}
 
-
-
-	                
+     
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/css/eggplant/jquery-ui-1.10.3.custom.css' %}" />
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
@@ -23,7 +21,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu_mobile.css' %}" /> 
 {% endif %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu.css' %}" /> 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -152,7 +149,13 @@
 
     </form>
     
-    <meta http-equiv="refresh" content="30" />
+    {% if flavour == "full" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	{% if flavour == "mobile" %}
+	<meta http-equiv="refresh" content="10" />
+	{% endif %}
+    
     
 </body>
 

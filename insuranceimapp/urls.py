@@ -24,8 +24,8 @@ urlpatterns = patterns('',
     # Admin already has an authentification mode built in.
 
     # Main (app_index). Shows the four available modes. Can't access them at the moment
-    # ex: /recipeprintoutsapp/
-    url(r'^$', views.app_index, name='app_index'),   
+    # ex: /insuranceimapp/
+    url(r'^$', views.app_login, name='app_login'),   
     
     #
     # User Main menu (main_menu). Create new Group + TeamLeader

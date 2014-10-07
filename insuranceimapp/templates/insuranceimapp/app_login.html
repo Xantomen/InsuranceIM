@@ -11,7 +11,14 @@
 {% endblock config_libs %}
 
 {% block special_libs %} 
+
+{% if flavour == "full" %}
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/app_login.css' %}" />
+{% endif %}
+{% if flavour == "mobile" %}
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/app_login_mobile.css' %}" />
+{% endif %}
+
 
 {% endblock special_libs %}
 
@@ -21,23 +28,44 @@
 
     $(document).ready(function () {
     
-        $( "#login" ).dialog({
-          autoOpen: true,
-          height: 300,
-          width: 350,
-          modal: true,
-          closeOnEscape: false,
-          resizable: false,
-          buttons: {
-            "Login": function() {
-                $('#LoginForm').submit();
-            },
-            "Register New User": function() {
-            	window.location.href = window.location.href + "register_new_user";
-            }
-          }
-          
-        });
+    	{% if flavour == "full" %}
+			/*$( "#login" ).dialog({
+	          autoOpen: true,
+	          height: 300,
+	          width: 350,
+	          modal: true,
+	          closeOnEscape: false,
+	          resizable: false,
+	          buttons: {
+	            "Login": function() {
+	                $('#LoginForm').submit();
+	            },
+	          }
+	          
+	        });*/
+		{% endif %}
+		{% if flavour == "mobile" %}
+			/*$( "#login" ).dialog({
+	          autoOpen: true,
+	          height: 1000,
+	          width: 800,
+	          modal: true,
+	          closeOnEscape: false,
+	          resizable: false,
+	          buttons: {
+	            "Login": function() {
+	                $('#LoginForm').submit();
+	            },
+	          }
+	          
+	        });*/
+		{% endif %}
+    
+    	$("#login_button").click(function(){
+    		
+    		$('#LoginForm').submit();
+    	});
+        
     
     
     });
@@ -47,7 +75,7 @@
 {% endblock javascript %}
 
 {% block content %}
-    <div id="login" title="Log In">
+    <div id="login" title="Allianz Sale Success"><div id="title_bar_container"><img id="logo_image" src="{% static 'insuranceimapp/images/allianzlogosuccess.png' %}"></div>
         <form id="LoginForm" name="LoginForm" action="{% url 'insuranceimapp:app_login' %}" method="post">
         {% csrf_token %}
         {% if next %}
@@ -56,12 +84,22 @@
               
           <fieldset>
             <label for="username">Username</label>
-            <input type="text" name="username" id="username"  class="text ui-widget-content ui-corner-all" />
+            <input type="text" name="username" id="username"  class="text ui-corner-all" />
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
+            <input type="password" name="password" id="password" value="" class="text ui-corner-all" />
           </fieldset>
 
+		  <div id="bottom_bar_container"><img id="login_button" src="{% static 'insuranceimapp/images/allianzlogin_smaller.png' %}"></div></div>
+		  
         </form>
     </div>
+    
+    {% if flavour == "full" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	{% if flavour == "mobile" %}
+	<!--<meta http-equiv="refresh" content="30" />-->
+	{% endif %}
+	
 {% endblock %}
 
