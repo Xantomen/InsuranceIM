@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render, redirect,render_to_response
 
+from insuranceimapp.viewsfunctions import common_functions_module
+
 def user_main_menu(request):
     
     
@@ -61,4 +63,7 @@ def user_main_menu(request):
                     print "Message PK doesn't match"
        
     context = {"group_profile":group_profile,"messages_list":messages_list}
-    return render(request,'insuranceimapp/user_main_menu.html',context)
+    if common_functions_module.mobileBrowser(request):
+        return render(request,'insuranceimapp/user_main_menu_mobile.html',context)
+    else:
+        return render(request,'insuranceimapp/user_main_menu.html',context)

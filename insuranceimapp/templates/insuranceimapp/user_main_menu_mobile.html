@@ -3,7 +3,7 @@
 
 {% block page_title %}
 <head>
-<title>InsuranceIM App Main Menu</title>
+<title>InsuranceIM App Main Menu Mobile</title>
 </head>
 {% endblock page_title %}
 
@@ -13,7 +13,7 @@
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js' %}" ></script>
 <script type="text/javascript" src="{% static 'insuranceimapp/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js' %}" ></script>
 
-<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/user_main_menu_mobile.css' %}" /> 
 <link rel="stylesheet" type="text/css" href="{% static 'insuranceimapp/site_basic_style_template.css' %}" />
 
 
@@ -125,6 +125,7 @@
 	                {% endif %}
 	                        
 	                        {% if messages_list|length == 0 %}
+	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
 	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
 	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
 	                        {% else %}
