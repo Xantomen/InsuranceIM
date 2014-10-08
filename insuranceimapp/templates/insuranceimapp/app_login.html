@@ -75,7 +75,7 @@
 {% endblock javascript %}
 
 {% block content %}
-    <div id="login" title="Allianz Sale Success"><div id="title_bar_container"><img id="logo_image" src="{% static 'insuranceimapp/images/allianzlogosuccess.png' %}"></div>
+    <div id="login" title="Allianz Sale Success"><div id="title_bar_container"><img id="logo_image" src="{% static 'insuranceimapp/images/vertriebsfirmalogosuccess.png' %}"></div>
         <form id="LoginForm" name="LoginForm" action="{% url 'insuranceimapp:app_login' %}" method="post">
         {% csrf_token %}
         {% if next %}
