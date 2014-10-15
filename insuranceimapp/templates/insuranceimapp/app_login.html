@@ -86,7 +86,7 @@
           	{% if flavour == "mobile" %}
           	<label for="username">User</label>
           	{% else %}
-          	<label for="username">Usero</label>
+          	<label for="username">Username</label>
           	{% endif %}
             
             <input type="text" name="username" id="username"  class="text ui-corner-all" />
@@ -105,6 +105,8 @@
 	{% if flavour == "mobile" %}
 	<!--<meta http-equiv="refresh" content="30" />-->
 	{% endif %}
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 {% endblock %}
 
