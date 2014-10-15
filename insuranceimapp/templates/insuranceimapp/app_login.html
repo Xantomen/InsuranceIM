@@ -83,7 +83,12 @@
         {% endif %}
               
           <fieldset>
-            <label for="username">Username</label>
+          	{% if flavour == "mobile" %}
+          	<label for="username">User</label>
+          	{% else %}
+          	<label for="username">Usero</label>
+          	{% endif %}
+            
             <input type="text" name="username" id="username"  class="text ui-corner-all" />
             <label for="password">Password</label>
             <input type="password" name="password" id="password" value="" class="text ui-corner-all" />
