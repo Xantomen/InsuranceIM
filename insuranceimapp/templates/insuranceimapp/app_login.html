@@ -83,12 +83,8 @@
         {% endif %}
               
           <fieldset>
-          	{% if flavour == "mobile" %}
-          	<label for="username">User</label>
-          	{% else %}
+          
           	<label for="username">Username</label>
-          	{% endif %}
-            
             <input type="text" name="username" id="username"  class="text ui-corner-all" />
             <label for="password">Password</label>
             <input type="password" name="password" id="password" value="" class="text ui-corner-all" />
@@ -104,9 +100,9 @@
 	{% endif %}
 	{% if flavour == "mobile" %}
 	<!--<meta http-equiv="refresh" content="30" />-->
+	<meta name="viewport" content="user-scalable=no">
 	{% endif %}
 	
-	<meta name="viewport" content="user-scalable=no">
 	<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
 	
 {% endblock %}
