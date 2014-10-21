@@ -118,4 +118,38 @@ height: 50%;
    color: grey;  
 }
 
+div#congratulations_message {
+	width: 51%;
+	height: 85%;
+	position: absolute;
+	z-index: 600;
+	background: #296AB3 !important;
+	top: 5%;
+	left: 24%;
+	display:none;
+}
+
+.centered_table_text {
+	
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+ 
+
+}
+
+
+#congratulations_table_container {
+	
+	height: 33%;
+}
+
+div#congratulations_image_container {
+	height: 66%;
+}
+
+img#success_image {
+	height: 100%;
+}
 
