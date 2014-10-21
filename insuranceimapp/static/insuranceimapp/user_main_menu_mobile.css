@@ -183,6 +183,14 @@ height: 50%;
 	font-size: 70% !important;
 }
 
+.success_container {
+	
+	background-image: url("images/successhand_icon.png");
+	background-repeat: no-repeat;
+	background-size:contain;
+	opacity: 0.6;
+}
+
 img.success_image {
 	height: 100%;
 	position: absolute;

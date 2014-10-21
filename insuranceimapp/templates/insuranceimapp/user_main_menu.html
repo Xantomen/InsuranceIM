@@ -123,7 +123,9 @@
 	                		<!--<div class="success_image_container"><img class="success_image" src="images/successhand_icon.png"></div>-->
 	                    	<li pk_value = "{{message.pk}}" class="list_message">
 	                    		<div class="success_container">
-	                    			<img class="success_image" src="{% static 'insuranceimapp/images/successhand_icon.png' %}">
+	                    			
+	                    			<!--<img class="success_image" src="{% static 'insuranceimapp/images/successhand_icon.png' %}">-->
+	                    			
 		                    		<table class="centered_table_text action_button list_button" action_value="clean_message">
 		                    		<td>Erfolgs!<br><span class="smaller_font">{{message.sender.first_name}}, {{message.sender.surname_first_letter}}., {{message.sender.zipcode}}, {{message.sender.city}}</span><br>
 		                    		 PVK: {{message.product_name}} - Euro: {{message.product_value}}

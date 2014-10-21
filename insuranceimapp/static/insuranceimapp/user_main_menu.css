@@ -185,8 +185,10 @@ height: 50%;
 
 .success_container {
 	
-	/*background-image: url("images/successhand_icon.png");
-	background-repeat: no-repeat;*/
+	background-image: url("images/successhand_icon.png");
+	background-repeat: no-repeat;
+	background-size:contain;
+	opacity: 0.6;
 }
 
 img.success_image {
@@ -194,3 +196,4 @@ img.success_image {
 	position: absolute;
 	opacity: 0.6;
 }
+
