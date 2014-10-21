@@ -177,3 +177,8 @@ height: 50%;
 :-ms-input-placeholder {  
    color: grey;  
 }
+
+.smaller_font {
+	
+	font-size: 70% !important;
+}

@@ -1,0 +1,16 @@
+Limit app input in product success )sale) to 5 chars and only numbers in the euro compartment.
+Change things to German
+Delete Allianz )shouldnt be any company name)
+Add Sale Success should be more like a button
+Just "Produkt" and "Euro".
+Not hide the password or input field with keyboard (either style things that way or not)
+
+Erfolgsmeldung eingeben(Instead of Sale Success Add)
+
+List of users to use with their password
+
+Einstellungen --- Optionen -- Sicherheit -- Unbekannte Quellen (to check the unknowkn apps)
+
+When creating the list of 20 users, put German names on them, Berlin, random postal code
+
+Show the name, date of sale, and personal data in the Sale Success part

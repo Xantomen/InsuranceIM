@@ -120,7 +120,16 @@
 	           
 	                <ul class="menuclass" id="toolspanelmenu">
 	                {% for message in messages_list %}
-	                    	<li pk_value = "{{message.pk}}" class="list_message"><table class="centered_table_text action_button list_button" action_value="clean_message"><td>There has been a sale of {{message.product_name}} for {{message.product_value}} Euros </td></table></li>
+	                		<!--<div class="success_image_container"><img class="success_image" src="images/successhand_icon.png"></div>-->
+	                    	<li pk_value = "{{message.pk}}" class="list_message">
+	                    		<div class="success_container">
+	                    			<img class="success_image" src="{% static 'insuranceimapp/images/successhand_icon.png' %}">
+		                    		<table class="centered_table_text action_button list_button" action_value="clean_message">
+		                    		<td>Erfolgs!<br><span class="smaller_font">{{message.sender.first_name}}, {{message.sender.surname_first_letter}}., {{message.sender.zipcode}}, {{message.sender.city}}</span><br>
+		                    		 PVK: {{message.product_name}} - Euro: {{message.product_value}}
+		                    		</td>
+	                    		</div>
+	                    	</table></li>
 	                {% endfor %}
 	                </ul>
 	                {% endif %}
@@ -132,11 +141,11 @@
 	                {% endif %}
 	                        
 	                        {% if messages_list|length == 0 %}
-	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
-	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
+	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Um {{group_profile.group.name}} Erfolgsmeldung, clicken Sie hier</td></table></li>
+	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Alle Meldungen löschen</td></table></li>
 	                        {% else %}
-	                        <li class="list_element"><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Add Sale Success to {{group_profile.group.name}}</td></table></li>
-	                        <li class="list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Clear All Messages</td></table></li>
+	                        <li class="list_element"><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Um {{group_profile.group.name}} Erfolgsmeldung eingeben, clicken Sie hier</td></table></li>
+	                        <li class="list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Alle Meldungen löschen</td></table></li>
 	                        {% endif %}
 	                        <li class="invisible list_element"><div id="logout_button" class="action_button list_button" action_value="logout"><p>Logout</p></div></li>
 	            			
@@ -150,7 +159,7 @@
     </form>
     
     {% if flavour == "full" %}
-	<meta http-equiv="refresh" content="60" />
+	<meta http-equiv="refresh" content="600" />
 	{% endif %}
 	{% if flavour == "mobile" %}
 	<meta http-equiv="refresh" content="60" />

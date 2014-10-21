@@ -69,6 +69,12 @@
 					can_be_sent = false;
 				}
 				
+				if(!$.isNumeric($("#product_value").val()))
+				{
+					can_be_sent = false;
+				}
+				
+				
 				if(can_be_sent == true)
 				{
 					$("#contents_form").submit();
@@ -105,15 +111,15 @@
 	                        <li class="list_user list_element">
 	                        	<div id="send_message_container" class="action_button list_button" action_value="register_new_group_button">
 	                        		<div class="data_field_container">
-	                        			<div class="label_field">Name of Product:</div>
+	                        			<div class="label_field">Produkt:</div>
 	                        			<div class="data_field">
-	                        				<input id="product_name" name="product_name" class="data_text_field" type="text" value="" placeholder="Write here the Product Name"/>
+	                        				<input maxlength="10" id="product_name" name="product_name" class="data_text_field" type="text" value="" placeholder="Schreiben Sie den Namen der Produkt"/>
 	                        			</div>
 	                        		</div>
 	                        		<div class="data_field_container">
-	                        			<div id="product_value_label" class="label_field">Value of Product:</div>
+	                        			<div id="product_value_label" class="label_field">Euros:</div>
 	                        			<div class="data_field">
-	                        				<input id="product_value" name="product_value" class="data_text_field" type="text" value="" placeholder="Write the Value of Product"/>
+	                        				<input maxlength="6" pattern="[0-9]" title="Format: Max. 6 digits" id="product_value" name="product_value" class="data_text_field" type="text" value="" placeholder="Schreiben Wert des Produkts"/>
 	                        			</div>
 	                        		</div>
 	                        		
@@ -122,8 +128,8 @@
 	                        
 	                </ul>
 	                <ul class="menuclass" id="optionsmenu">
-	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>Send</p></div></li>
-	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Cancel and Back to Menu</p></div></li>
+	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>Senden</p></div></li>
+	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Abbrechen und zurück zum Menü</p></div></li>
 	            	</ul>
 	            </div>
 	            
