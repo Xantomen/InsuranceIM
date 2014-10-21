@@ -77,10 +77,22 @@
 				
 				if(can_be_sent == true)
 				{
-					$("#contents_form").submit();
+					
+					activateCongratulationsPopup();
+					
+					setTimeout(function(){$("#contents_form").submit();},4000);
+					
 				}
 				
 			});
+			
+			function activateCongratulationsPopup(){
+				
+		        $("#congratulations_message").css("display","block");
+				$("#toolspanel_container").css("display","none");
+			
+
+			}
 			
 			
 			
@@ -113,11 +125,11 @@
 	                        		<div class="data_field_container">
 	                        			<div class="label_field">Produkt:</div>
 	                        			<div class="data_field">
-	                        				<input maxlength="10" id="product_name" name="product_name" class="data_text_field" type="text" value="" placeholder="Schreiben Sie den Namen der Produkt"/>
+	                        				<input maxlength="10" id="product_name" name="product_name" class="data_text_field" type="text" value="" placeholder="Produktbezeichung"/>
 	                        			</div>
 	                        		</div>
 	                        		<div class="data_field_container">
-	                        			<div id="product_value_label" class="label_field">Euros:</div>
+	                        			<div id="product_value_label" class="label_field">Euro:</div>
 	                        			<div class="data_field">
 	                        				<input maxlength="6" pattern="[0-9]" title="Format: Max. 6 digits" id="product_value" name="product_value" class="data_text_field" type="text" value="" placeholder="Schreiben Wert des Produkts"/>
 	                        			</div>
@@ -128,10 +140,12 @@
 	                        
 	                </ul>
 	                <ul class="menuclass" id="optionsmenu">
-	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>Senden</p></div></li>
+	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>An alle Kollegen senden</p></div></li>
 	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Abbrechen und zurück zum Menü</p></div></li>
 	            	</ul>
 	            </div>
+	            
+	            
 	            
 	            <input type="text" name="action_to_execute" id="action_to_execute" class="invisible" value=""/>
 	            
@@ -139,6 +153,25 @@
 	            
 	            <input type="text" name="users_dictionary_string" id="users_dictionary_string" class="invisible" value=""/>
 	    </div>
+	    
+	    <div id="congratulations_message">
+	            	<div id="congratulations_image_container">
+	            		<table class="centered_table_text list_button">
+	                    		<td>
+	                    			<img id="success_image" src="{% static 'insuranceimapp/images/successhand_icon.png' %}">
+								</td>
+	                    </table>
+	            	</div>
+	            	<div id="congratulations_table_container">
+	            		<table class="centered_table_text list_button">
+	                    		<td>
+	                    			Herzlichen Glückwunsch und vielen Dank! <br><br>
+	                    			Ihr Erfolg wurde geteilt
+								</td>
+	                    </table>
+	            	</div>
+	            	
+	            </div>
 
     </form>
     
