@@ -111,6 +111,8 @@ height: 50%;
 	height: 100%;
 	vertical-align: middle;
 	text-align: center;
+ 
+
 
 }
 
@@ -185,10 +187,11 @@ height: 50%;
 
 .success_container {
 	
-	background-image: url("images/successhand_icon.png");
+	background-image: url("images/successhand_icon_opacity06.png");
 	background-repeat: no-repeat;
 	background-size:contain;
-	opacity: 0.6;
+
+
 }
 
 img.success_image {
