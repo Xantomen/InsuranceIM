@@ -182,3 +182,9 @@ height: 50%;
 	
 	font-size: 70% !important;
 }
+
+img.success_image {
+	height: 100%;
+	position: absolute;
+	opacity: 0.6;
+}
