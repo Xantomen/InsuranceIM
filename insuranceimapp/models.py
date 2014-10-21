@@ -5,6 +5,10 @@ from django.db import models
 from django.contrib.auth.models import User,Group
 from django.db.models.signals import post_save
 
+from tzlocal import get_localzone
+
+local_tz = get_localzone()
+
 
 #Table to organise the different possible views/interfaces (in case there are different tools)
 
@@ -20,6 +24,8 @@ class UserInterfaceType(models.Model):
 class Message(models.Model):  
     product_name = models.CharField(max_length=63,default='')
     product_value = models.CharField(max_length=15,default='')
+    
+    creation_date = models.DateTimeField('creation date', default=datetime.datetime.now().replace(tzinfo=timezone.utc))
     
     pushed = models.CharField(max_length=15,default='not_pushed')
     sender = models.ForeignKey('UserProfile', null=True, blank=True, default=None)
