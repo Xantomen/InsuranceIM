@@ -31,7 +31,8 @@ li:nth-child(odd){
 #toolspanelmenu {
 	
 	margin-top:2%;
-	height: 35%;
+	/*height: 35%;*/
+	height:5%;
 
 	
 	overflow:auto;
