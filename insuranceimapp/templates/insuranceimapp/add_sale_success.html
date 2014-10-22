@@ -140,8 +140,13 @@
 	                        
 	                </ul>
 	                <ul class="menuclass" id="optionsmenu">
-	                        <li class="option_element"><div id="send_message_button" class="action_button list_button" action_value="send_message"><p>An alle Kollegen senden</p></div></li>
-	                        <li class="option_element"><div id="back_to_menu_button" class="action_button list_button" action_value="back_to_menu"><p>Abbrechen und zurück zum Menü</p></div></li>
+	                        <li class="option_element">
+	                        	<table id="send_message_button" class="centered_table_text action_button list_button" action_value="send_message"><td>An alle Kollegen senden</td></table>
+	                        </li>
+	                        <li class="option_element">
+	                        	<table id="back_to_menu_button" class="centered_table_text action_button list_button" action_value="back_to_menu"><td>Abbrechen und zurück zum Menü</td></table>
+	                        	
+	                        </li>
 	            	</ul>
 	            </div>
 	            
@@ -179,7 +184,7 @@
 	<!--<meta http-equiv="refresh" content="30" />-->
 	{% endif %}
 	{% if flavour == "mobile" %}
-	<!--<meta http-equiv="refresh" content="1" />-->
+	<meta http-equiv="refresh" content="5" />
 	<meta name="viewport" content="user-scalable=no">
 	{% endif %}
     
