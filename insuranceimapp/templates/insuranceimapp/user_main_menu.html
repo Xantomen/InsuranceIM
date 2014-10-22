@@ -127,8 +127,8 @@
 	                    			<!--<img class="success_image" src="{% static 'insuranceimapp/images/successhand_icon.png' %}">-->
 	                    			{% load tz %}
 		                    		<table class="centered_table_text action_button list_button" action_value="clean_message">
-		                    		<td>Erfolgs!<br><span class="smaller_font">{{message.sender.first_name}}, {{message.sender.surname_first_letter}}., {{message.sender.zipcode}}, {{message.sender.city}}<br>{{message.creation_date|utc}}</span><br>
-		                    		 PVK: {{message.product_name}} <br> Euro: {{message.product_value}}
+		                    		<td>Erfolgsmeldung!<br><span class="smaller_font">{{message.sender.first_name}}, {{message.sender.surname_first_letter}}., {{message.sender.zipcode}}, {{message.sender.city}}<br>{{message.creation_date|utc}}</span><br>
+		                    		 Produkt: {{message.product_name}} <br> Euro: {{message.product_value}}
 		                    		</td>
 	                    		
 	                    			</table>
@@ -148,7 +148,7 @@
 	                        <li class="list_element no_new_messages_list_element" ><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Neue Erfolgsmeldung.<br>Hier clicken</td></table></li>
 	                        <li class="invisible list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Alle Meldungen löschen</td></table></li>
 	                        {% else %}
-	                        <li class="list_element"><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Neue Erfolgsmeldung.<br>Hier clicken</td></table></li>
+	                        <li class="list_element"><table id="add_sale_success_button" class="centered_table_text action_button list_button" action_value="add_sale_success"><td>Neue Erfolgsmeldung.<br>Hier klicken</td></table></li>
 	                        <li class="list_element"><table id="clear_all_messages_button" class="centered_table_text action_button list_button" action_value="clear_all_messages_button"><td>Alle Meldungen löschen</td></table></li>
 	                        {% endif %}
 	                        <li class="invisible list_element"><div id="logout_button" class="action_button list_button" action_value="logout"><p>Logout</p></div></li>
