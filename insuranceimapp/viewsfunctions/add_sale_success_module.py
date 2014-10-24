@@ -62,7 +62,12 @@ def add_sale_success(request):
             new_message.setSender(user_profile)
             new_message.addReceiverGroup(group_profile)
             
-            users_in_group_except_myself = group_profile.getMembersList().exclude(user = user_profile.user)
+            #Comment this line to exclude the sender user from the receivers
+            users_in_group_except_myself = group_profile.getMembersList()
+            
+            
+            #Uncomment this line to exclude the sender user from the receivers
+            #users_in_group_except_myself = users_in_group_except_myself.exclude(user = user_profile.user)
             
             for temp_user_profile in users_in_group_except_myself:
                 
