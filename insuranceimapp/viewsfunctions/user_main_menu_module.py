@@ -39,7 +39,7 @@ def user_main_menu(request):
        
     
     group_profile = user_profile.getOrAddGroupProfile()
-    messages_list = user_profile.getUnreadMessages()
+    messages_list = user_profile.getUnreadMessages().order_by('-creation_date')[:5]
     
     messages_pks_to_clear_list = messages_to_clear.split(",")
     
