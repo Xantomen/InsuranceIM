@@ -49,7 +49,6 @@ class Message(models.Model):
         else:
            self.pushed = 'not_pushed'
         
-           
     def setSender(self,sender):
         if sender:
             self.sender = sender
@@ -64,6 +63,11 @@ class Message(models.Model):
     def addReceiverGroup(self,receiver):
         if receiver:
             self.receiver_groups.add(receiver)
+        
+    def setCreationDateTo(self, date):
+        if date:
+            self.creation_date = date
+        
       
 class Report(models.Model):  
     action = models.CharField(max_length=63,default='')

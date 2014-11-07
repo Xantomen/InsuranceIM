@@ -6,6 +6,8 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render, redirect,render_to_response
+from django.utils import timezone
+from datetime import timedelta
 import json
 
 from insuranceimapp.viewsfunctions import common_functions_module
@@ -57,6 +59,7 @@ def add_sale_success(request):
             new_message = Message()
             new_message.save()
             
+            new_message.setCreationDateTo(datetime.datetime.now().replace(tzinfo=timezone.utc))
             new_message.setProductName(product_name)
             new_message.setProductValue(product_value)
             new_message.setSender(user_profile)
